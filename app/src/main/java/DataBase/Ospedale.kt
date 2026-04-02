@@ -1,3 +1,8 @@
 package DataBase
 
-data class Ospedale()
+import androidx.room.Entity
+
+@Entity(tableName = "Ospedale")
+data class Ospedale(
+    var idOspedale: Int
+)

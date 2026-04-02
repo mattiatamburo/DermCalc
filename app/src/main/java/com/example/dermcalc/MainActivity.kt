@@ -1,20 +1,31 @@
 package com.example.dermcalc
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.app.Activity
+import android.app.Service
+import android.widget.TextView
+import android.widget.Button
+import android.content.Intent
+import android.os.IBinder
+import android.util.Log
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.Toolbar
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        val toolbar = findViewById<Toolbar>(R.id.upperToolBar)
+        val btnHome = findViewById<ImageButton>(R.id.btnHome)
+        btnHome.setOnClickListener {
+            //portare alla pagina home
+            val intent = Intent(this, MainActivity::class.java)
         }
+        val txtNome = findViewById<TextView>(R.id.txtName)
+        val btnProfilo = findViewById<ImageButton>(R.id.btnProfilo)
+        txtNome.setText("Mauro Rossi")
     }
 }
