@@ -16,6 +16,10 @@ import androidx.appcompat.widget.Toolbar
 
 class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        //se l'utente non ha già fatto l'accesso passare prima per la LoginActivity
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<Toolbar>(R.id.upperToolBar)
@@ -27,5 +31,7 @@ class MainActivity: AppCompatActivity() {
         val txtNome = findViewById<TextView>(R.id.txtName)
         val btnProfilo = findViewById<ImageButton>(R.id.btnProfilo)
         txtNome.setText("Mauro Rossi")
+
+
     }
 }

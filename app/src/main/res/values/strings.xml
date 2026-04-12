@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">DermCalc</string>
+    //Dati generali
+    <string name="app_name">                        DermCalc                                    </string>
+
+    //Pagina Login
+    <string name="title_activity_login">            LoginActivity                               </string>
+    <string name="title_login">                     Login                                       </string>
+    <string name="textField_email">                 Email                                       </string>
+    <string name="textField_password">              Password                                    </string>
+    <string name="btn_login">                       Login                                       </string>
 </resources>

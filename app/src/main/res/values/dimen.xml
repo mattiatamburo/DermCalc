@@ -1,0 +1,6 @@
+<resources>
+    //Pagina Login
+    <dimen  name="title_size">                      48sp                                         </dimen>
+    <dimen  name="textField_height">                50dp                                         </dimen>
+    <dimen  name="btn_login_height">                64dp                                         </dimen>
+</resources>
