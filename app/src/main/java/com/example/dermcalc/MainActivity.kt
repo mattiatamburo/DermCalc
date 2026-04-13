@@ -17,8 +17,15 @@ import androidx.appcompat.widget.Toolbar
 class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //se l'utente non ha già fatto l'accesso passare prima per la LoginActivity
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
+        val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
+
+        if (!isLoggedIn) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
