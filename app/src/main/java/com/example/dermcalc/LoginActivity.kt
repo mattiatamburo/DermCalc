@@ -1,5 +1,6 @@
 package com.example.dermcalc
 
+import DataBase.DB_Manager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
@@ -24,7 +25,7 @@ class LoginActivity : ComponentActivity() {
         val textField_Email = findViewById<TextView>(R.id.textFieldEmail)
         val textField_Password = findViewById<TextView>(R.id.textFieldPassword)
         val btn_Login = findViewById<TextView>(R.id.btn_login)
-
+        val db = DB_Manager(this);
         btn_Login.setOnClickListener {
             //controllo credenziali
             val username = textField_Email.text.toString();
@@ -33,14 +34,13 @@ class LoginActivity : ComponentActivity() {
             println(password);
             println(username == "admin");
             println(password == "admin");
-            if(username.equals("admin") && password.equals("admin")){
+            if (db.checkLogin(username, password) != null) {
                 val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
                 sharedPref.edit().putBoolean("isLoggedIn", true).apply()
 // Poi rimanda alla LoginActivity
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
-
         }
     }
 }

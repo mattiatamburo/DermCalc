@@ -14,15 +14,15 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //se l'utente non ha già fatto l'accesso passare prima per la LoginActivity
         val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
         val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
 
-        if (!isLoggedIn) {
-            val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+        if (!isLoggedIn) {
             finish()
             return
         }
@@ -38,7 +38,5 @@ class MainActivity: AppCompatActivity() {
         val txtNome = findViewById<TextView>(R.id.txtName)
         val btnProfilo = findViewById<ImageButton>(R.id.btnProfilo)
         txtNome.setText("Mauro Rossi")
-
-
     }
 }
