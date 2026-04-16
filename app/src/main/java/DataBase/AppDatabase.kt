@@ -16,7 +16,7 @@ import androidx.room.TypeConverters
     ],
     version = 1
 )
-@TypeConverters(androidx.databinding.adapters.Converters::class) // Se hai campi Date, ti serve questo (vedi sotto)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun dbInterface(): DB_Interface
 }

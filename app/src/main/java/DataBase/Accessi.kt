@@ -2,7 +2,6 @@ package DataBase
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import java.security.KeyStore
 
 @Entity(tableName = "Accessi",
         primaryKeys = ["idAccesso"],
@@ -17,5 +16,5 @@ data class Accessi(
     var idAccesso: Int,
     var idDottore: Int,
     var username: String,
-    var password: KeyStore.PasswordProtection
+    var password: String
 )

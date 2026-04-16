@@ -19,8 +19,17 @@ class DB_Manager(context: Context) {
     // Metodi per usare le query
     fun getAllDiagnosi(idDottore: Int) = dbInterface.getAllDiagnosi(idDottore)
 
-    fun checkLogin(user: String, pass: String): Boolean {
+    fun checkLogin(user: String, pass: String): Int {
         println(dbInterface.checkLogin(user, pass))
-        return dbInterface.checkLogin(user, pass) != null
+        return 0
     }
+
+    fun insertAccessi(accesso: Accessi) {
+        dbInterface.insertAccessi(accesso)
+    }
+
+    fun insertDottore(dottore: Dottore){
+        dbInterface.insertDottore(dottore)
+    }
+
 }

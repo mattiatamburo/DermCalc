@@ -6,15 +6,14 @@ import androidx.room.*;
     primaryKeys = ["idCartellaClinica"],
     foreignKeys = [
         ForeignKey(
-            entity = Paziente::class, // La classe dell'entità a cui ti riferisci
-            parentColumns = ["idPaziente"], // La colonna chiave primaria nel Paziente
-            childColumns = ["idPaziente"], // La colonna chiave esterna in CartellaClinica
-            onDelete = ForeignKey.CASCADE // Comportamento se il paziente viene cancellato
+            entity = Paziente::class,
+            parentColumns = ["idPaziente"],
+            childColumns = ["idPaziente"],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
 data class CartellaClinica(
-    var idCartellaClinica: Int,
+    var idCartellaClinica: Int = 0,
     var idPaziente: Int
-
 )

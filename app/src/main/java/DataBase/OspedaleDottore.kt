@@ -1,7 +1,5 @@
 package DataBase
 
-import androidx.room.PrimaryKey
-
 import androidx.room.*
 
 @Entity(
@@ -23,7 +21,6 @@ import androidx.room.*
     ]
 )
 data class OspedaleDottore(
-    @PrimaryKey(false)
     var idOspedale: Int,
     var idDottore: Int
 )

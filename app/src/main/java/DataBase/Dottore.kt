@@ -6,8 +6,8 @@ import java.util.Date
 
 @Entity(tableName = "Dottore")
 data class Dottore(
-    @PrimaryKey(true)
-    var idDottore: Int,
+    @PrimaryKey(autoGenerate = true)
+    var idDottore: Int = 0,
     var nome: String,
     var cognome: String,
     var cellulare: String,

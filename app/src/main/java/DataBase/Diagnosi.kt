@@ -20,7 +20,7 @@ import androidx.room.ForeignKey
     ]
 )
 data class Diagnosi(
-    var idDiagnosi: Int,
+    var idDiagnosi: Int = 0,
     var idDottore: Int,
     var idCartellaClinica: Int,
     var note: String
