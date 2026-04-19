@@ -1,5 +1,6 @@
 package com.example.dermcalc
 
+import DataBase.DB_Manager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
@@ -16,6 +17,15 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
 
         val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
+        //set isloggedin = false
+
+        val db = DB_Manager(this);
+        val dottori = db.leggiDottore();
+        println("Dottori: ");
+        for (dottore in dottori){
+            println(dottore.nome);
+        }
+
 
         if (!isLoggedIn) {
             val intent = Intent(this, LoginActivity::class.java)

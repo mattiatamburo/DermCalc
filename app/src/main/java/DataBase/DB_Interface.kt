@@ -8,7 +8,11 @@ interface DB_Interface {
 
     //controllo accesso login
     @Query("SELECT * FROM Accessi WHERE username = :username AND password = :password")
-    fun checkLogin(username: String, password: String): Int;
+    fun checkLogin(username: String, password: String): Accessi?;
+
+    @Query("SELECT * FROM Dottore")
+    fun leggiDottore(): List<Dottore>;
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAccessi(accesso: Accessi)

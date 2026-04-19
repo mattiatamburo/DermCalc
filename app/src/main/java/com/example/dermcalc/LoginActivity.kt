@@ -30,29 +30,8 @@ class LoginActivity : ComponentActivity() {
         val textField_Password = findViewById<TextView>(R.id.textFieldPassword)
         val btn_Login = findViewById<TextView>(R.id.btn_login)
         val db = DB_Manager(this);
-        db.insertDottore(
-            Dottore(
-                idDottore = 1,
-                nome = "Mario",
-                cognome = "Rossi",
-                cellulare = "392646758",
-                codFiscale = "BNR98URSU8UDRBD",
-                email = "mariorossi@gmail.com",
-                dataNascita = Date(
-                    1976,
-                    2,
-                    2
-                )
-            )
-        )
-        db.insertAccessi(
-            Accessi(
-                idAccesso = 0,
-                idDottore = 1,
-                username = "admin",
-                password = "admin"
-            )
-        )
+        println("Dottori: " + db.leggiDottore());
+
         btn_Login.setOnClickListener {
             //controllo credenziali
             val username = textField_Email.text.toString();
@@ -62,14 +41,12 @@ class LoginActivity : ComponentActivity() {
             println(username == "admin");
             println(password == "admin");
             val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
-            if (db.checkLogin(username, password) != 0) {
+            if (db.checkLogin(username, password) != -1) {
                 sharedPref.edit { putBoolean("isLoggedIn", true) }
 // Poi rimanda alla LoginActivity
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else sharedPref.edit { putBoolean("isLoggedIn", false) }
-
         }
     }
 }
-

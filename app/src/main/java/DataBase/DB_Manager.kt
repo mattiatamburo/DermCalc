@@ -20,8 +20,11 @@ class DB_Manager(context: Context) {
     fun getAllDiagnosi(idDottore: Int) = dbInterface.getAllDiagnosi(idDottore)
 
     fun checkLogin(user: String, pass: String): Int {
-        println(dbInterface.checkLogin(user, pass))
-        return 0
+        val dottore = dbInterface.checkLogin(user, pass)
+        //println(dottore?.idDottore ?: "dottore non trovato");
+        println("idDottore: " + dottore?.idDottore ?: "dottore non trovato");
+
+        return dottore?.idDottore ?: -1;
     }
 
     fun insertAccessi(accesso: Accessi) {
@@ -30,6 +33,10 @@ class DB_Manager(context: Context) {
 
     fun insertDottore(dottore: Dottore){
         dbInterface.insertDottore(dottore)
+    }
+
+    fun leggiDottore(): List<Dottore> {
+        return dbInterface.leggiDottore()
     }
 
 }
