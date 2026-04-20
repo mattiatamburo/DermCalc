@@ -41,8 +41,12 @@ class LoginActivity : ComponentActivity() {
             println(username == "admin");
             println(password == "admin");
             val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
-            if (db.checkLogin(username, password) != -1) {
-                sharedPref.edit { putBoolean("isLoggedIn", true) }
+            val idDottore = db.checkLogin(username, password);
+            if (idDottore != -1) {
+                sharedPref.edit {
+                    putBoolean("isLoggedIn", true)
+                    putInt("idDottore", idDottore)
+                }
 // Poi rimanda alla LoginActivity
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)

@@ -10,21 +10,25 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.edit
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        private var firstTimeLaunch = true
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Recupero le preferenze
         val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
 
-        val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
-        //set isloggedin = false
 
-        val db = DB_Manager(this);
-        val dottori = db.leggiDottore();
-        println("Dottori: ");
-        for (dottore in dottori){
-            println(dottore.nome);
+        if (firstTimeLaunch) {
+            sharedPref.edit { clear() }
+            firstTimeLaunch = false
         }
+
+        val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
+        val db = DB_Manager(this);
 
 
         if (!isLoggedIn) {
@@ -41,11 +45,15 @@ class MainActivity : AppCompatActivity() {
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
         val txtNome = findViewById<TextView>(R.id.txtName)
         val btnProfilo = findViewById<ImageButton>(R.id.btnProfilo)
+        val idDottore = sharedPref.getInt("idDottore", -1)
+        val dottore = db.getDottoreById(idDottore);
 
-        txtNome.text = "Mauro Rossi"
+        txtNome.text = dottore?.nome + " " + dottore?.cognome;
 
         btnHome.setOnClickListener {
-            // Già in MainActivity, opzionale: refresh o scroll in alto
+            val intent = intent
+            finish()
+            startActivity(intent)
         }
         
         btnProfilo.setOnClickListener {

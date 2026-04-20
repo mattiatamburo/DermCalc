@@ -13,6 +13,8 @@ interface DB_Interface {
     @Query("SELECT * FROM Dottore")
     fun leggiDottore(): List<Dottore>;
 
+    @Query("SELECT * FROM Dottore WHERE idDottore = :idDottore")
+    fun getDottoreById(idDottore: Int): Dottore?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAccessi(accesso: Accessi)

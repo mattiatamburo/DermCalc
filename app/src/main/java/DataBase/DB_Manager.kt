@@ -39,4 +39,8 @@ class DB_Manager(context: Context) {
         return dbInterface.leggiDottore()
     }
 
+    fun getDottoreById(idDottore: Int): Dottore? {
+        return dbInterface.getDottoreById(idDottore)
+    }
+
 }
