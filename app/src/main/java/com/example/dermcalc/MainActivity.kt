@@ -1,6 +1,7 @@
 package com.example.dermcalc
 
 import DataBase.DB_Manager
+import DataBase.Paziente
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
@@ -8,6 +9,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.edit
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,6 +53,21 @@ class MainActivity : AppCompatActivity() {
         val dottore = db.getDottoreById(idDottore);
 
         txtNome.text = dottore?.nome + " " + dottore?.cognome;
+
+        //listaPazienti
+        //-----
+        val listaTest = listOf(
+            Paziente(0, "Mario", " Rossi", "12345678901", "james.monroe@examplepetstore.com", "123456789", Date("2018-12-12")),
+            Paziente(1, "Giulia", "Bianchi", "98765432109", "john.hessin.clarke@examplepetstore.com", "987654321", Date("2018-12-12")),
+            Paziente(2, "Luca", "Verdi", "45678901234", "william.henry.harrison@example-pet-store.com", "456789012", Date("2018-12-12")),
+        )
+
+        val recyclerView            = findViewById<RecyclerView>(R.id.listaPazienti)
+        recyclerView.layoutManager  = LinearLayoutManager(this)
+
+        val adapter                 = PazienteAdapter(listaTest)
+        recyclerView.adapter        = adapter
+        //-----
 
         btnHome.setOnClickListener {
             val intent = intent

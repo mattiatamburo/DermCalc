@@ -8,4 +8,7 @@
     <string name="textField_email">                 Email                                       </string>
     <string name="textField_password">              Password                                    </string>
     <string name="btn_login">                       Login                                       </string>
+
+    //Pagina Home
+    <string name="ricerca_Pazienti">                Cerca Pazienti…                           </string>
 </resources>
