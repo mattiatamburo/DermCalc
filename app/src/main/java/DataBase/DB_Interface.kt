@@ -1,20 +1,29 @@
 package DataBase
-import androidx.room.*;
+
+import androidx.room.*
+
 @Dao
 interface DB_Interface {
-    //prendo tutte le diagnosi di un dottore
     @Query("SELECT * FROM Diagnosi WHERE idDottore = :idDottore")
-    fun getAllDiagnosi(idDottore: Int): List<Diagnosi>;
+    fun getAllDiagnosi(idDottore: Int): List<Diagnosi>
 
-    //controllo accesso login
-    @Query("SELECT * FROM Accessi WHERE username = :username AND password = :password")
-    fun checkLogin(username: String, password: String): Accessi?;
+    @Query("SELECT * FROM Dottore JOIN Accessi USING (idDottore) WHERE username = :username AND password = :password")
+    fun checkLogin(username: String, password: String): Dottore?
 
     @Query("SELECT * FROM Dottore")
-    fun leggiDottore(): List<Dottore>;
+    fun leggiDottore(): List<Dottore>
 
-    @Query("SELECT * FROM Dottore WHERE idDottore = :idDottore")
-    fun getDottoreById(idDottore: Int): Dottore?
+    @Query("SELECT * FROM Dottore WHERE idDottore = :id")
+    fun getDottoreById(id: Int): Dottore?
+
+    @Query("SELECT * FROM Paziente")
+    fun getPazienti(): List<Paziente>
+
+    @Query("SELECT * FROM Paziente WHERE nome LIKE '%' || :input || '%' OR cognome LIKE '%' || :input || '%'")
+    fun searchPaziente(input: String): List<Paziente>
+
+    @Query("DELETE FROM Paziente WHERE idPaziente > 3")
+    fun removeDavide();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAccessi(accesso: Accessi)
@@ -22,5 +31,6 @@ interface DB_Interface {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDottore(dottore: Dottore)
 
-
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPaziente(paziente: Paziente)
 }

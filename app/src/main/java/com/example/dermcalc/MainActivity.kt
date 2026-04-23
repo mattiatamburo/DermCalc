@@ -6,12 +6,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.edit
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,10 +26,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         // Recupero le preferenze
         val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
-
 
         if (firstTimeLaunch) {
             sharedPref.edit { clear() }
@@ -45,36 +50,42 @@ class MainActivity : AppCompatActivity() {
         // Se arrivo qui, l'utente è loggato
         setContentView(R.layout.activity_main)
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
         val toolbar = findViewById<Toolbar>(R.id.upperToolBar)
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
         val txtNome = findViewById<TextView>(R.id.txtName)
         val btnProfilo = findViewById<ImageButton>(R.id.btnProfilo)
         val idDottore = sharedPref.getInt("idDottore", -1)
+        //val idDottore = 1;
         val dottore = db.getDottoreById(idDottore);
 
         txtNome.text = dottore?.nome + " " + dottore?.cognome;
 
-        //listaPazienti
-        //-----
-        val listaTest = listOf(
-            Paziente(0, "Mario", " Rossi", "12345678901", "james.monroe@examplepetstore.com", "123456789", Date("2018-12-12")),
-            Paziente(1, "Giulia", "Bianchi", "98765432109", "john.hessin.clarke@examplepetstore.com", "987654321", Date("2018-12-12")),
-            Paziente(2, "Luca", "Verdi", "45678901234", "william.henry.harrison@example-pet-store.com", "456789012", Date("2018-12-12")),
-        )
 
-        val recyclerView            = findViewById<RecyclerView>(R.id.listaPazienti)
-        recyclerView.layoutManager  = LinearLayoutManager(this)
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
+        val listaTest = db.getPazienti()
+        for (paziente in listaTest) {
+            println(paziente.idPaziente.toString() + " " + paziente.cognome + " " + paziente.nome);
+        }
+        val recyclerView = findViewById<RecyclerView>(R.id.listaPazienti)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val adapter                 = PazienteAdapter(listaTest)
-        recyclerView.adapter        = adapter
+        val adapter = PazienteAdapter(listaTest)
+        recyclerView.adapter = adapter
         //-----
+
 
         btnHome.setOnClickListener {
-            val intent = intent
+            val restartIntent = Intent(this, MainActivity::class.java)
             finish()
-            startActivity(intent)
+            startActivity(restartIntent)
         }
-        
+
         btnProfilo.setOnClickListener {
             // Esempio: vai al profilo
         }

@@ -5,42 +5,33 @@ import androidx.room.Room
 
 class DB_Manager(context: Context) {
 
-    // Crea un'unica istanza del database che contiene tutte le tabelle
     private val db = Room.databaseBuilder(
         context.applicationContext,
         AppDatabase::class.java,
         "dermcalc_database"
     )
-        .allowMainThreadQueries() // Nota: In un'app reale usa i thread!
+        .allowMainThreadQueries()
         .build()
 
     private val dbInterface = db.dbInterface()
 
-    // Metodi per usare le query
     fun getAllDiagnosi(idDottore: Int) = dbInterface.getAllDiagnosi(idDottore)
 
-    fun checkLogin(user: String, pass: String): Int {
-        val dottore = dbInterface.checkLogin(user, pass)
-        //println(dottore?.idDottore ?: "dottore non trovato");
-        println("idDottore: " + dottore?.idDottore ?: "dottore non trovato");
+    fun checkLogin(user: String, pass: String) = dbInterface.checkLogin(user, pass)
 
-        return dottore?.idDottore ?: -1;
-    }
+    fun leggiDottore() = dbInterface.leggiDottore()
 
-    fun insertAccessi(accesso: Accessi) {
-        dbInterface.insertAccessi(accesso)
-    }
+    fun getDottoreById(id: Int) = dbInterface.getDottoreById(id)
 
-    fun insertDottore(dottore: Dottore){
-        dbInterface.insertDottore(dottore)
-    }
+    fun getPazienti() = dbInterface.getPazienti()
 
-    fun leggiDottore(): List<Dottore> {
-        return dbInterface.leggiDottore()
-    }
+    fun removeDavide() = dbInterface.removeDavide()
 
-    fun getDottoreById(idDottore: Int): Dottore? {
-        return dbInterface.getDottoreById(idDottore)
-    }
+    fun searchPaziente(input: String) = dbInterface.searchPaziente(input)
 
+    fun insertAccessi(accesso: Accessi) = dbInterface.insertAccessi(accesso)
+
+    fun insertDottore(dottore: Dottore) = dbInterface.insertDottore(dottore)
+
+    fun insertPaziente(paziente: Paziente) = dbInterface.insertPaziente(paziente)
 }

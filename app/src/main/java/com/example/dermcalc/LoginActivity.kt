@@ -1,56 +1,53 @@
 package com.example.dermcalc
 
-import DataBase.Accessi
 import DataBase.DB_Manager
-import DataBase.Dottore
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.TextView
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.widget.Toolbar
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.dermcalc.ui.theme.DermCalcTheme
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
-import java.util.Date
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
-class LoginActivity : ComponentActivity() {
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-        val textField_Email = findViewById<TextView>(R.id.textFieldEmail)
-        val textField_Password = findViewById<TextView>(R.id.textFieldPassword)
-        val btn_Login = findViewById<TextView>(R.id.btn_login)
-        val db = DB_Manager(this);
-        println("Dottori: " + db.leggiDottore());
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        val textField_Email = findViewById<EditText>(R.id.textFieldEmail)
+        val textField_Password = findViewById<EditText>(R.id.textFieldPassword)
+        val btn_Login = findViewById<Button>(R.id.btn_login)
+        val db = DB_Manager(this)
 
         btn_Login.setOnClickListener {
-            //controllo credenziali
-            val username = textField_Email.text.toString();
-            val password = textField_Password.text.toString();
-            println(username);
-            println(password);
-            println(username == "admin");
-            println(password == "admin");
+            val username = textField_Email.text.toString()
+            val password = textField_Password.text.toString()
+
+            val accesso = db.checkLogin(username, password)
             val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
-            val idDottore = db.checkLogin(username, password);
-            if (idDottore != -1) {
+            println(accesso)
+            if (accesso != null) {
                 sharedPref.edit {
                     putBoolean("isLoggedIn", true)
-                    putInt("idDottore", idDottore)
+                    putInt("idDottore", accesso.idDottore)
                 }
-// Poi rimanda alla LoginActivity
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-            } else sharedPref.edit { putBoolean("isLoggedIn", false) }
+                finish()
+            } else {
+                sharedPref.edit { putBoolean("isLoggedIn", false) }
+                Toast.makeText(this, "Credenziali errate", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
