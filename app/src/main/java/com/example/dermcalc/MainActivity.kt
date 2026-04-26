@@ -77,8 +77,6 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = PazienteAdapter(listaTest)
         recyclerView.adapter = adapter
-        //-----
-
 
         btnHome.setOnClickListener {
             val restartIntent = Intent(this, MainActivity::class.java)
