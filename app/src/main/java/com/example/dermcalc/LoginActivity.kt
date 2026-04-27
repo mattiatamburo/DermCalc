@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                         cellulare = "333${Random.nextInt(1000000, 9999999)}",
                         dataNascita = Date(System.currentTimeMillis() - Random.nextLong(630720000000L, 2522880000000L)) // Età tra 20 e 80 anni
                     )
-                    db.insertPaziente(paziente)
+                    //db.insertPaziente(paziente)
                 }
 
                 sharedPref.edit {

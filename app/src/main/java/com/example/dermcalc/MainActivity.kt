@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
         val db = DB_Manager(this);
 
-
         if (!isLoggedIn) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -61,7 +60,6 @@ class MainActivity : AppCompatActivity() {
         val txtNome = findViewById<TextView>(R.id.txtName)
         val btnProfilo = findViewById<ImageButton>(R.id.btnProfilo)
         val idDottore = sharedPref.getInt("idDottore", -1)
-        //val idDottore = 1;
         val dottore = db.getDottoreById(idDottore);
 
         txtNome.text = dottore?.nome + " " + dottore?.cognome;
@@ -85,7 +83,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnProfilo.setOnClickListener {
-            // Esempio: vai al profilo
+            val intent = Intent(this, ProfiloActivity::class.java)
+            startActivity(intent)
         }
     }
 }
