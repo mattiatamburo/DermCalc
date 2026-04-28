@@ -2,6 +2,7 @@ package DataBase
 
 import android.content.Context
 import androidx.room.Room
+import java.util.Date
 
 class DB_Manager(context: Context) {
 
@@ -34,4 +35,8 @@ class DB_Manager(context: Context) {
     fun insertDottore(dottore: Dottore) = dbInterface.insertDottore(dottore)
 
     fun insertPaziente(paziente: Paziente) = dbInterface.insertPaziente(paziente)
+
+    fun modifyDottore(nome: String, cognome: String, cellulare: String, codFiscale: String, email: String, dataNascita: Date, id: Int): Boolean {
+        return dbInterface.modifyDottore(nome, cognome, cellulare, codFiscale, email, dataNascita, id) > 0
+    }
 }

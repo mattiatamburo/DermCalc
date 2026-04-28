@@ -23,13 +23,16 @@ interface DB_Interface {
     fun searchPaziente(input: String): List<Paziente>
 
     @Query("DELETE FROM Paziente WHERE idPaziente > 3")
-    fun removeDavide();
+    fun removeDavide()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAccessi(accesso: Accessi)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDottore(dottore: Dottore)
+
+    @Query("UPDATE Dottore SET nome = :nome, cognome = :cognome, cellulare = :cellulare, codFiscale = :codFiscale, email = :email, dataNascita = :dataNascita WHERE idDottore = :id")
+    fun modifyDottore(nome: String, cognome: String, cellulare: String, codFiscale: String, email: String, dataNascita: java.util.Date, id: Int): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPaziente(paziente: Paziente)
