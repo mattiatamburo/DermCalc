@@ -39,4 +39,6 @@ class DB_Manager(context: Context) {
     fun modifyDottore(nome: String, cognome: String, cellulare: String, codFiscale: String, email: String, dataNascita: Date, id: Int): Boolean {
         return dbInterface.modifyDottore(nome, cognome, cellulare, codFiscale, email, dataNascita, id) > 0
     }
+
+    fun getPazienteById(id: Int) = dbInterface.getPazienteById(id)
 }

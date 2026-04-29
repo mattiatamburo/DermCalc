@@ -91,7 +91,6 @@ class ModificaDatiPersonali : AppCompatActivity() {
                 } catch (e: Exception) {
                     dottore.dataNascita
                 }
-
                 if (db.modifyDottore(
                         strNome,
                         strCognome,

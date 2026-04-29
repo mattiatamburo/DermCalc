@@ -4,6 +4,7 @@ import DataBase.DB_Manager
 import DataBase.Paziente
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -60,7 +62,8 @@ class MainActivity : AppCompatActivity() {
         val txtNome = findViewById<TextView>(R.id.txtName)
         val btnProfilo = findViewById<ImageButton>(R.id.btnProfilo)
         val idDottore = sharedPref.getInt("idDottore", -1)
-        val dottore = db.getDottoreById(idDottore);
+        val dottore = db.getDottoreById(idDottore)
+        val btnTest = findViewById<Button>(R.id.btnTest)
 
         txtNome.text = dottore?.nome + " " + dottore?.cognome;
 
@@ -84,6 +87,12 @@ class MainActivity : AppCompatActivity() {
 
         btnProfilo.setOnClickListener {
             val intent = Intent(this, ProfiloActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnTest.setOnClickListener {
+            sharedPref.edit{ putInt("idPaziente", Random.nextInt(1, 11))}
+            val intent = Intent(this, ProfiloPaziente::class.java)
             startActivity(intent)
         }
     }

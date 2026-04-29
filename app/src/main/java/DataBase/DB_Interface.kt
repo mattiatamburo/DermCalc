@@ -34,6 +34,9 @@ interface DB_Interface {
     @Query("UPDATE Dottore SET nome = :nome, cognome = :cognome, cellulare = :cellulare, codFiscale = :codFiscale, email = :email, dataNascita = :dataNascita WHERE idDottore = :id")
     fun modifyDottore(nome: String, cognome: String, cellulare: String, codFiscale: String, email: String, dataNascita: java.util.Date, id: Int): Int
 
+    @Query("SELECT * FROM Paziente WHERE idPaziente = :id")
+    fun getPazienteById(id: Int): Paziente?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPaziente(paziente: Paziente)
 }
