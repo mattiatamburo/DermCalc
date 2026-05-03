@@ -5,6 +5,7 @@ import DataBase.Paziente
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -16,17 +17,20 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
+import android.text.TextWatcher
+import android.text.Editable
 import java.util.Date
 import java.util.Locale
 import kotlin.random.Random
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity()
+{
     companion object {
         private var firstTimeLaunch = true
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
@@ -57,13 +61,13 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val toolbar = findViewById<Toolbar>(R.id.upperToolBar)
-        val btnHome = findViewById<ImageButton>(R.id.btnHome)
-        val txtNome = findViewById<TextView>(R.id.txtName)
-        val btnProfilo = findViewById<ImageButton>(R.id.btnProfilo)
-        val idDottore = sharedPref.getInt("idDottore", -1)
-        val dottore = db.getDottoreById(idDottore)
-        val btnTest = findViewById<Button>(R.id.btnTest)
+        val toolbar     = findViewById<Toolbar>     (R.id.upperToolBar)
+        val btnHome     = findViewById<ImageButton> (R.id.btnHome)
+        val txtNome     = findViewById<TextView>    (R.id.txtName)
+        val btnProfilo  = findViewById<ImageButton> (R.id.btnProfilo)
+        val idDottore   = sharedPref.getInt("idDottore", -1)
+        val dottore     = db.getDottoreById(idDottore)
+        val btnTest     = findViewById<Button>      (R.id.btnTest)
 
         txtNome.text = dottore?.nome + " " + dottore?.cognome;
 
@@ -73,11 +77,25 @@ class MainActivity : AppCompatActivity() {
         for (paziente in listaTest) {
             println(paziente.idPaziente.toString() + " " + paziente.cognome + " " + paziente.nome);
         }
-        val recyclerView = findViewById<RecyclerView>(R.id.listaPazienti)
-        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val adapter = PazienteAdapter(listaTest)
-        recyclerView.adapter = adapter
+        val recyclerView            = findViewById<RecyclerView>(R.id.listaPazienti)
+        recyclerView.layoutManager  = LinearLayoutManager(this)
+
+        val adapter                 = PazienteAdapter(listaTest)
+        recyclerView.adapter        = adapter
+
+        val barraRicerca: EditText  = findViewById(R.id.ricercaPazienti)
+
+        barraRicerca.addTextChangedListener(object : TextWatcher
+        {
+          override fun beforeTextChanged    (s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+          override fun onTextChanged        (s: CharSequence?, start: Int, before: Int, count: Int)
+          {
+            adapter.filter(s.toString())
+          }
+          override fun afterTextChanged     (s: Editable?) {}
+        })
 
         btnHome.setOnClickListener {
             val restartIntent = Intent(this, MainActivity::class.java)

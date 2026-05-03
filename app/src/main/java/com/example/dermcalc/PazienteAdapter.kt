@@ -7,8 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import DataBase.Paziente
 
-class PazienteAdapter(private val listaPazienti: List<Paziente>) : RecyclerView.Adapter<PazienteAdapter.PazienteViewHolder>()
+class PazienteAdapter(private var listaPazienti: List<Paziente>) : RecyclerView.Adapter<PazienteAdapter.PazienteViewHolder>()
 {
+  private var filteredList: List<Paziente> = listaPazienti
   class PazienteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
   {
      val textNome   : TextView  = itemView.findViewById(R.id.textFieldNome)
@@ -24,7 +25,7 @@ class PazienteAdapter(private val listaPazienti: List<Paziente>) : RecyclerView.
 
   override fun onBindViewHolder(holder: PazienteViewHolder, index: Int)
   {
-    val pazienteCorrente = listaPazienti[index]
+    val pazienteCorrente = filteredList[index]
 
     holder.textNome     .text = pazienteCorrente.nome
     holder.textCognome  .text = pazienteCorrente.cognome
@@ -33,6 +34,22 @@ class PazienteAdapter(private val listaPazienti: List<Paziente>) : RecyclerView.
 
   override fun getItemCount(): Int
   {
-    return listaPazienti.size
+    return filteredList.size
   }
+
+  fun filter(query: String)
+  {
+    filteredList = if(query.isEmpty()) listaPazienti else listaPazienti.filter {
+        val nomeCognome = "${it.nome} ${it.cognome}"
+        val cognomeNome = "${it.cognome} ${it.nome}"
+        val id          = it.idPaziente.toString()
+
+        nomeCognome.contains(query, ignoreCase = true) ||
+        cognomeNome.contains(query, ignoreCase = true) ||
+        id         .contains(query, ignoreCase = true)
+    }
+
+    notifyDataSetChanged()
+  }
+
 }
