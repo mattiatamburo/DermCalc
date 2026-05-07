@@ -27,7 +27,7 @@ class ProfiloPaziente : AppCompatActivity() {
 
         val db = DB_Manager(this)
         val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
-        val id_paziente = sharedPref.getInt("idPaziente", -1)
+        val id_paziente = intent.getIntExtra("idPaziente", -1)
         val id_dottore = sharedPref.getInt("idDottore", -1)
         val paziente = db.getPazienteById(id_paziente)
         val dottore = db.getDottoreById(id_dottore)

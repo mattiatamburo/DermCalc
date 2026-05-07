@@ -23,14 +23,12 @@ import java.util.Date
 import java.util.Locale
 import kotlin.random.Random
 
-class MainActivity : AppCompatActivity()
-{
+class MainActivity : AppCompatActivity() {
     companion object {
         private var firstTimeLaunch = true
     }
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
@@ -61,40 +59,37 @@ class MainActivity : AppCompatActivity()
             insets
         }
 
-        val toolbar     = findViewById<Toolbar>     (R.id.upperToolBar)
-        val btnHome     = findViewById<ImageButton> (R.id.btnHome)
-        val txtNome     = findViewById<TextView>    (R.id.txtName)
-        val btnProfilo  = findViewById<ImageButton> (R.id.btnProfilo)
-        val idDottore   = sharedPref.getInt("idDottore", -1)
-        val dottore     = db.getDottoreById(idDottore)
-        val btnTest     = findViewById<Button>      (R.id.btnTest)
+        val toolbar = findViewById<Toolbar>(R.id.upperToolBar)
+        val btnHome = findViewById<ImageButton>(R.id.btnHome)
+        val txtNome = findViewById<TextView>(R.id.txtName)
+        val btnProfilo = findViewById<ImageButton>(R.id.btnProfilo)
+        val idDottore = sharedPref.getInt("idDottore", -1)
+        val dottore = db.getDottoreById(idDottore)
 
         txtNome.text = dottore?.nome + " " + dottore?.cognome;
 
-
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
         val listaTest = db.getPazienti()
-        for (paziente in listaTest) {
-            println(paziente.idPaziente.toString() + " " + paziente.cognome + " " + paziente.nome);
-        }
+//        for (paziente in listaTest) {
+//            println(paziente.idPaziente.toString() + " " + paziente.cognome + " " + paziente.nome);
+//        }
 
-        val recyclerView            = findViewById<RecyclerView>(R.id.listaPazienti)
-        recyclerView.layoutManager  = LinearLayoutManager(this)
+        val recyclerView = findViewById<RecyclerView>(R.id.listaPazienti)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val adapter                 = PazienteAdapter(listaTest)
-        recyclerView.adapter        = adapter
+        val adapter = PazienteAdapter(listaTest)
+        recyclerView.adapter = adapter
 
-        val barraRicerca: EditText  = findViewById(R.id.ricercaPazienti)
+        val barraRicerca: EditText = findViewById(R.id.ricercaPazienti)
 
-        barraRicerca.addTextChangedListener(object : TextWatcher
-        {
-          override fun beforeTextChanged    (s: CharSequence?, start: Int, count: Int, after: Int) {}
+        barraRicerca.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-          override fun onTextChanged        (s: CharSequence?, start: Int, before: Int, count: Int)
-          {
-            adapter.filter(s.toString())
-          }
-          override fun afterTextChanged     (s: Editable?) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                adapter.filter(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
         })
 
         btnHome.setOnClickListener {
@@ -108,10 +103,5 @@ class MainActivity : AppCompatActivity()
             startActivity(intent)
         }
 
-        btnTest.setOnClickListener {
-            sharedPref.edit{ putInt("idPaziente", Random.nextInt(1, 11))}
-            val intent = Intent(this, ProfiloPaziente::class.java)
-            startActivity(intent)
-        }
     }
 }

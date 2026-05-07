@@ -41,4 +41,8 @@ class DB_Manager(context: Context) {
     }
 
     fun getPazienteById(id: Int) = dbInterface.getPazienteById(id)
+
+    fun removePazienti() = dbInterface.removePazienti();
+
+    fun resetPazienteIndex() = dbInterface.resetPazienteIndex();
 }

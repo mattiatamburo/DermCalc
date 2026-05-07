@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import DataBase.Paziente
+import android.content.Intent
 
 class PazienteAdapter(private var listaPazienti: List<Paziente>) : RecyclerView.Adapter<PazienteAdapter.PazienteViewHolder>()
 {
@@ -30,6 +31,13 @@ class PazienteAdapter(private var listaPazienti: List<Paziente>) : RecyclerView.
     holder.textNome     .text = pazienteCorrente.nome
     holder.textCognome  .text = pazienteCorrente.cognome
     holder.textID       .text = pazienteCorrente.idPaziente.toString()
+
+    holder.itemView.setOnClickListener {
+        val context = holder.itemView.context
+        val intent = Intent(context, ProfiloPaziente::class.java)
+        intent.putExtra("idPaziente", pazienteCorrente.idPaziente)
+        context.startActivity(intent)
+    }
   }
 
   override fun getItemCount(): Int
@@ -48,8 +56,6 @@ class PazienteAdapter(private var listaPazienti: List<Paziente>) : RecyclerView.
         cognomeNome.contains(query, ignoreCase = true) ||
         id         .contains(query, ignoreCase = true)
     }
-
     notifyDataSetChanged()
   }
-
 }

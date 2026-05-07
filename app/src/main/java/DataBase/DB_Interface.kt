@@ -37,6 +37,12 @@ interface DB_Interface {
     @Query("SELECT * FROM Paziente WHERE idPaziente = :id")
     fun getPazienteById(id: Int): Paziente?
 
+    @Query("DELETE FROM Paziente")
+    fun removePazienti()
+
+    @Query("DELETE FROM sqlite_sequence WHERE name='Paziente'")
+    fun resetPazienteIndex()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPaziente(paziente: Paziente)
 }

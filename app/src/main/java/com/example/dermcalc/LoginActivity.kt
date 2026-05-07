@@ -15,6 +15,7 @@ import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import kotlin.random.Random
@@ -44,23 +45,46 @@ class LoginActivity : AppCompatActivity() {
             val sharedPref = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
 
             if (accesso != null) {
-                // Inserimento 10 pazienti random
-                val nomi = listOf("Marco", "Luca", "Anna", "Giulia", "Paolo", "Elena", "Roberto", "Sara", "Fabio", "Marta")
-                val cognomi = listOf("Rossi", "Bianchi", "Verdi", "Russo", "Ferrari", "Esposito", "Romano", "Gallo", "Costa", "Fontana")
-                
-                for (i in 1..10) {
+                // Inserimento 100 pazienti random con nomi e cognomi diffusi
+                val nomi = listOf(
+                    "Leonardo", "Francesco", "Alessandro", "Edoardo", "Tommaso", "Mattia", "Riccardo", "Gabriele", "Lorenzo", "Elia",
+                    "Sofia", "Aurora", "Giulia", "Ginevra", "Vittoria", "Beatrice", "Alice", "Ludovica", "Emma", "Matilde",
+                    "Giuseppe", "Giovanni", "Antonio", "Mario", "Luigi", "Vincenzo", "Pietro", "Salvatore", "Carlo", "Felice",
+                    "Franco", "Guido", "Paolo", "Sergio", "Roberto", "Stefano", "Angelo", "Domenico", "Marco", "Luca",
+                    "Andrea", "Filippo", "Giacomo", "Matteo", "Nicola", "Pasquale", "Claudio", "Bruno", "Giorgio", "Alberto",
+                    "Daniele", "Romano", "Massimo", "Federico", "Enzo", "Maurizio", "Giulio", "Enrico", "Carmelo", "Davide",
+                    "Gianluca", "Simone", "Christian", "Manuel", "Ivan", "Samuel", "Alessio", "Mirko", "Yuri", "Oscar",
+                    "Igor", "Boris", "Fabio", "Valerio", "Flavio", "Adriano", "Luciano", "Renzo", "Aldo", "Remo",
+                    "Dino", "Elio", "Italo", "Arturo", "Silvano", "Tullio", "Vasco", "Clara", "Lucia", "Elena",
+                    "Anna", "Rosa", "Paola", "Chiara", "Marta", "Sara", "Elena", "Francesca", "Valentina", "Giorgia"
+                )
+                val cognomi = listOf(
+                    "Rossi", "Russo", "Ferrari", "Esposito", "Bianchi", "Romano", "Colombo", "Ricci", "Marino", "Greco",
+                    "Bruno", "Gallo", "Conti", "De Luca", "Mancini", "Costa", "Giordano", "Rizzo", "Lombardi", "Moretti",
+                    "Barbieri", "Fontana", "Santoro", "Mariani", "Rinaldi", "Caruso", "Ferrara", "Galli", "Martini", "Leone",
+                    "Longo", "Gentile", "Martinelli", "Vitale", "Serra", "Coppola", "De Santis", "De Angelis", "Marchetti", "Messina",
+                    "D'Angelo", "Gatti", "Pellegrini", "Palumbo", "Sanna", "Farina", "Monti", "Pasquali", "Morelli", "Villa",
+                    "Basile", "Pellegrino", "Grassi", "Ferraro", "Silvestri", "Castelli", "Bernardi", "Sala", "Grasso", "Marini",
+                    "Ferri", "Orlando", "Amato", "Pagano", "Mauro", "De Rosa", "D'Agostino", "Caputo", "Mazza", "Romeo",
+                    "Battaglia", "Bellini", "Donati", "Fabbri", "Guerra", "Negri", "Oliva", "Piras", "Riva", "Tosi",
+                    "Valenti", "Zani", "Brambilla", "Cattaneo", "Villa", "Bonomi", "Molinari", "Parisi", "Fonti", "Riva",
+                    "Donadoni", "Giacometti", "Sartori", "Pavan", "Russo", "Neri", "Sorace", "Marrone", "Anzani", "Montanari"
+                )
+                db.removePazienti()
+                db.resetPazienteIndex()
+                for (i in 1..100) {
                     val nome = nomi.random()
                     val cognome = cognomi.random()
-                    val randomId = i
+                    val dataNascita = Date(System.currentTimeMillis() - Random.nextLong(630720000000L, 2522880000000L))
                     val paziente = Paziente(
                         nome = nome,
                         cognome = cognome,
-                        codFiscale = "${nome.take(3)}${cognome.take(3)}${randomId}X".uppercase(),
-                        email = "${nome.lowercase()}.${cognome.lowercase()}@example.com",
+                        codFiscale = calcolaCodiceFiscale(nome, cognome, dataNascita),
+                        email = "${nome.lowercase(Locale.ITALY)}.${cognome.lowercase(Locale.ITALY)}$i@example.com",
                         cellulare = "333${Random.nextInt(1000000, 9999999)}",
-                        dataNascita = Date(System.currentTimeMillis() - Random.nextLong(630720000000L, 2522880000000L)) // Età tra 20 e 80 anni
+                        dataNascita = dataNascita
                     )
-                    //db.insertPaziente(paziente)
+                    db.insertPaziente(paziente)
                 }
 
                 sharedPref.edit {
@@ -71,7 +95,6 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                // ... codice esistente per il dottore di test ...
                 db.insertDottore(
                     Dottore(
                         0,
@@ -84,8 +107,43 @@ class LoginActivity : AppCompatActivity() {
                     )
                 )
                 db.insertAccessi(Accessi(0, 1, username, password))
-                Toast.makeText(this, "Credenziali create. Riprova il login.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Credenziali create. Riprova il login.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
+    }
+
+    private fun calcolaCodiceFiscale(nome: String, cognome: String, data: Date): String {
+        fun getConsonanti(s: String) = s.uppercase(Locale.ITALY).filter { it in "BCDFGHJKLMNPQRSTVWXYZ" }
+        fun getVocali(s: String) = s.uppercase(Locale.ITALY).filter { it in "AEIOU" }
+
+        // Cognome: prime 3 consonanti (o vocali se mancano, o X se corto)
+        val consC = getConsonanti(cognome)
+        val vocC = getVocali(cognome)
+        val partCognome = (consC + vocC + "XXX").take(3)
+
+        // Nome: 1a, 3a e 4a consonante se >= 4, altrimenti prime 3 (o vocali, o X)
+        val consN = getConsonanti(nome)
+        val vocN = getVocali(nome)
+        val partNome = if (consN.length >= 4) {
+            "${consN[0]}${consN[2]}${consN[3]}"
+        } else {
+            (consN + vocN + "XXX").take(3)
+        }
+
+        val cal = Calendar.getInstance()
+        cal.time = data
+        val anno = String.format(Locale.ITALY, "%02d", cal.get(Calendar.YEAR) % 100)
+        val mesi = "ABCDEHLMPRST"
+        val mese = mesi[cal.get(Calendar.MONTH)]
+        
+        // Giorno: se femmina si aggiunge 40 (qui randomizziamo il sesso)
+        val d = cal.get(Calendar.DAY_OF_MONTH)
+        val giorno = String.format(Locale.ITALY, "%02d", if (Random.nextBoolean()) d else d + 40)
+
+        val comune = "H501" // Roma (uguale per tutti come richiesto)
+        val check = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".random() // Carattere di controllo casuale
+
+        return (partCognome + partNome + anno + mese + giorno + comune + check).uppercase(Locale.ITALY)
     }
 }
