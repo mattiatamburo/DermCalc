@@ -45,4 +45,8 @@ class DB_Manager(context: Context) {
     fun removePazienti() = dbInterface.removePazienti();
 
     fun resetPazienteIndex() = dbInterface.resetPazienteIndex();
+
+    fun insertDiagnosi(diagnosi: Diagnosi) = dbInterface.insertDiagnosi(diagnosi);
+
+    fun getDiagnosiByPaziente(idPaziente: Int): List<Diagnosi> {return dbInterface.getDiagnosiByPaziente(idPaziente)}
 }

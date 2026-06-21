@@ -45,4 +45,10 @@ interface DB_Interface {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPaziente(paziente: Paziente)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertDiagnosi(diagnosi: Diagnosi)
+
+    @Query("SELECT D.* FROM Diagnosi D JOIN CartellaClinica C ON D.idCartellaClinica = C.idCartellaClinica WHERE C.idPaziente = :idPaziente")
+    fun getDiagnosiByPaziente(idPaziente: Int): List<Diagnosi>
 }

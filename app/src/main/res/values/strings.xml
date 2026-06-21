@@ -10,5 +10,9 @@
     <string name="btn_login">                       Login                                       </string>
 
     //Pagina Home
-    <string name="ricerca_Pazienti">                Cerca Pazienti…                           </string>
+    <string name="ricerca_Pazienti">                Cerca Pazienti…                             </string>
+
+    //Pagina Paziente
+    <string name="ricerca_Diagnosi">                Cerca Diagnosi…                             </string>
+    <string name="inserisci_Diagnosi">              Inserisci nuova Diagnosi                    </string>
 </resources>
