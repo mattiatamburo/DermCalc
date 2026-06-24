@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="20dp"
-        android:text="Cellulare"
+        android:text="@string/text_Cellulare"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
-        android:text="Codice Fiscale"
+        android:text="@string/text_CodFiscale"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNomeCognome" />
 
@@ -37,7 +37,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
         android:inputType="date"
-        android:text="Data Nascita"
+        android:text="@string/text_DataNascita"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCodFiscale" />
 
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
-        android:text="Cont. Emergenza"
+        android:text="@string/text_Emergenza"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
-        android:text="Email"
+        android:text="@string/text_Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCellulare" />
 
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="100dp"
-        android:text="Nome Cognome"
+        android:text="@string/text_NomeCognome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,7 +75,7 @@
         android:id="@+id/btnInserisciDiagnosi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/inserisci_Diagnosi"
+        android:text="@string/btn_inserisci_Diagnosi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

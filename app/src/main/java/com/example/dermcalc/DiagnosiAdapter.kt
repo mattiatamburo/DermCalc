@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class DiagnosiAdapter(private var listaDiagnosi: List<Diagnosi>) : RecyclerView.Adapter<DiagnosiAdapter.DiagnosiViewHolder>()
 {
     private var filteredList: List<Diagnosi> = listaDiagnosi
+
     class DiagnosiViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         val texttipoCalcolatore     : TextView  = itemView.findViewById(R.id.textTipoCalcolatore)
@@ -21,23 +24,24 @@ class DiagnosiAdapter(private var listaDiagnosi: List<Diagnosi>) : RecyclerView.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiagnosiViewHolder
     {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_paziente, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_diagnosi, parent, false)
         return DiagnosiViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: DiagnosiViewHolder, index: Int)
     {
-        val DiagnosiCorrente = filteredList[index]
+        val DiagnosiCorrente    = filteredList[index]
+        val formatter           = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ITALY)
 
-        holder.texttipoCalcolatore  .text = DiagnosiCorrente.tipoCalcolatore
-        holder.textDataDiagnosi     .text = DiagnosiCorrente.dataDiagnosi   .toString()
-        holder.textSeverita         .text = DiagnosiCorrente.severita
-        holder.textID               .text = DiagnosiCorrente.idDiagnosi     .toString()
+        holder.texttipoCalcolatore  .text =                         DiagnosiCorrente.tipoCalcolatore
+        holder.textDataDiagnosi     .text = formatter.format(DiagnosiCorrente.dataDiagnosi)
+        holder.textSeverita         .text =                         DiagnosiCorrente.severita
+        holder.textID               .text =                         DiagnosiCorrente.idDiagnosi     .toString()
 
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
-            val intent  = Intent(context, ProfiloPaziente::class.java)
-            intent.putExtra("idPaziente", DiagnosiCorrente.idDiagnosi)
+            val intent  = Intent(context, DettaglioDiagnosiActivity::class.java)
+            intent.putExtra("idDiagnosi", DiagnosiCorrente.idDiagnosi)
             context.startActivity(intent)
         }
     }

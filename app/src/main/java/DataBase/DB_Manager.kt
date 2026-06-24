@@ -12,6 +12,7 @@ class DB_Manager(context: Context) {
         "dermcalc_database"
     )
         .allowMainThreadQueries()
+        .fallbackToDestructiveMigration()
         .build()
 
     private val dbInterface = db.dbInterface()
@@ -34,7 +35,9 @@ class DB_Manager(context: Context) {
 
     fun insertDottore(dottore: Dottore) = dbInterface.insertDottore(dottore)
 
-    fun insertPaziente(paziente: Paziente) = dbInterface.insertPaziente(paziente)
+    fun insertPaziente(paziente: Paziente): Long {return dbInterface.insertPaziente(paziente)}
+
+    fun insertCartellaClinica(cartella: CartellaClinica) = dbInterface.insertCartellaClinica(cartella)
 
     fun modifyDottore(nome: String, cognome: String, cellulare: String, codFiscale: String, email: String, dataNascita: Date, id: Int): Boolean {
         return dbInterface.modifyDottore(nome, cognome, cellulare, codFiscale, email, dataNascita, id) > 0
@@ -44,9 +47,15 @@ class DB_Manager(context: Context) {
 
     fun removePazienti() = dbInterface.removePazienti();
 
+    fun removeDiagnosi() = dbInterface.removeDiagnosi()
+
+    fun removeCartelleCliniche() = dbInterface.removeCartelleCliniche()
     fun resetPazienteIndex() = dbInterface.resetPazienteIndex();
 
+    fun getDiagnosiById(idDiagnosi: Int): Diagnosi? {return dbInterface.getDiagnosiById(idDiagnosi)}
     fun insertDiagnosi(diagnosi: Diagnosi) = dbInterface.insertDiagnosi(diagnosi);
 
     fun getDiagnosiByPaziente(idPaziente: Int): List<Diagnosi> {return dbInterface.getDiagnosiByPaziente(idPaziente)}
+
+    fun getCartellaClinica(idPaziente: Int): Int {return dbInterface.getCartellaClinica(idPaziente)}
 }

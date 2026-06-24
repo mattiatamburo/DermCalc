@@ -2,11 +2,11 @@ package DataBase
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import java.sql.Date
+import androidx.room.PrimaryKey
+import java.util.Date
 
 @Entity(
     tableName = "Diagnosi",
-    primaryKeys = ["idDiagnosi"],
     foreignKeys = [
         ForeignKey(
             entity = Dottore::class,
@@ -21,6 +21,7 @@ import java.sql.Date
     ]
 )
 data class Diagnosi(
+    @PrimaryKey(autoGenerate = true)
     var idDiagnosi: Int = 0,
     var idDottore: Int,
     var dataDiagnosi: Date,

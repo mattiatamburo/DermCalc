@@ -40,15 +40,29 @@ interface DB_Interface {
     @Query("DELETE FROM Paziente")
     fun removePazienti()
 
+    @Query("DELETE FROM Diagnosi")
+    fun removeDiagnosi()
+
+    @Query("DELETE FROM CartellaClinica")
+    fun removeCartelleCliniche()
+
     @Query("DELETE FROM sqlite_sequence WHERE name='Paziente'")
     fun resetPazienteIndex()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPaziente(paziente: Paziente)
+    fun insertPaziente(paziente: Paziente): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCartellaClinica(cartellaClinica: CartellaClinica)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDiagnosi(diagnosi: Diagnosi)
 
+    @Query("SELECT * FROM Diagnosi WHERE idDiagnosi = :idDiagnosi")
+    fun getDiagnosiById(idDiagnosi: Int): Diagnosi?
     @Query("SELECT D.* FROM Diagnosi D JOIN CartellaClinica C ON D.idCartellaClinica = C.idCartellaClinica WHERE C.idPaziente = :idPaziente")
     fun getDiagnosiByPaziente(idPaziente: Int): List<Diagnosi>
+
+    @Query("SELECT idCartellaClinica FROM CartellaClinica WHERE idPaziente = :idPaziente")
+    fun getCartellaClinica(idPaziente: Int): Int
 }

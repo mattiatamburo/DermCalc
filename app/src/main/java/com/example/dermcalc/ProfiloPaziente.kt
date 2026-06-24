@@ -22,6 +22,24 @@ import java.util.Locale
 
 class ProfiloPaziente : AppCompatActivity()
 {
+    override fun onResume()
+    {
+        super.onResume()
+
+        val db = DB_Manager(this)
+        val id_paziente = intent.getIntExtra("idPaziente", -1)
+
+        if (id_paziente != -1)
+        {
+            val recyclerView = findViewById<RecyclerView>(R.id.listaDiagnosi)
+
+            val listaAggiornata = db.getDiagnosiByPaziente(id_paziente)
+
+            val adapter = DiagnosiAdapter(listaAggiornata)
+            recyclerView.adapter = adapter
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -82,6 +100,8 @@ class ProfiloPaziente : AppCompatActivity()
             })
 
         }
+
+
 
         btnHome.setOnClickListener {
             finish()

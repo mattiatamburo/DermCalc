@@ -1,6 +1,7 @@
 package com.example.dermcalc
 
 import DataBase.Accessi
+import DataBase.CartellaClinica
 import DataBase.DB_Manager
 import DataBase.Dottore
 import DataBase.Paziente
@@ -70,6 +71,8 @@ class LoginActivity : AppCompatActivity() {
                     "Valenti", "Zani", "Brambilla", "Cattaneo", "Villa", "Bonomi", "Molinari", "Parisi", "Fonti", "Riva",
                     "Donadoni", "Giacometti", "Sartori", "Pavan", "Russo", "Neri", "Sorace", "Marrone", "Anzani", "Montanari"
                 )
+                db.removeDiagnosi()
+                db.removeCartelleCliniche()
                 db.removePazienti()
                 db.resetPazienteIndex()
                 for (i in 1..100) {
@@ -84,7 +87,11 @@ class LoginActivity : AppCompatActivity() {
                         cellulare = "333${Random.nextInt(1000000, 9999999)}",
                         dataNascita = dataNascita
                     )
-                    db.insertPaziente(paziente)
+                    val idGenerato = db.insertPaziente(paziente)
+                    val nuovaCartella = CartellaClinica(
+                        idPaziente = idGenerato.toInt()
+                    )
+                    db.insertCartellaClinica(nuovaCartella)
                 }
 
                 sharedPref.edit {
