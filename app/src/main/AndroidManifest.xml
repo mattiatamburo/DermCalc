@@ -41,6 +41,15 @@
             android:name=".BmiActivity"
             android:exported="false" />
         <activity
+            android:name=".BsaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PasiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EasiActivity"
+            android:exported="false" />
+        <activity
             android:name=".DettaglioDiagnosiActivity"
             android:exported="false"/>
     </application>

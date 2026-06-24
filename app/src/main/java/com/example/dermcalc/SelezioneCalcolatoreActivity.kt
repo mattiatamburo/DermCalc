@@ -11,7 +11,8 @@ import androidx.core.view.WindowInsetsCompat
 
 class SelezioneCalcolatoreActivity : AppCompatActivity()
 {
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_selezione_calcolatore)
@@ -24,22 +25,30 @@ class SelezioneCalcolatoreActivity : AppCompatActivity()
 
         val idPaziente = intent.getIntExtra("idPaziente", -1)
 
-        val btnPasi = findViewById<Button>(R.id.btn_PASI)
-        val btnEasi = findViewById<Button>(R.id.btn_EASI)
-        val btnBsa = findViewById<Button>(R.id.btn_BSA)
-        val btnBmi = findViewById<Button>(R.id.btn_BMI)
-        val btnAnnulla = findViewById<Button>(R.id.btn_Annulla)
+        val btnPasi     = findViewById<Button>(R.id.btn_PASI)
+        val btnEasi     = findViewById<Button>(R.id.btn_EASI)
+        val btnBsa      = findViewById<Button>(R.id.btn_BSA)
+        val btnBmi      = findViewById<Button>(R.id.btn_BMI)
+        val btnAnnulla  = findViewById<Button>(R.id.btn_Annulla)
 
         btnPasi.setOnClickListener {
-
+            val intent = Intent(this, PasiActivity::class.java)
+            intent.putExtra("idPaziente", idPaziente)
+            startActivity(intent)
             finish()
         }
 
         btnEasi.setOnClickListener {
+            val intent = Intent(this, EasiActivity::class.java)
+            intent.putExtra("idPaziente", idPaziente)
+            startActivity(intent)
             finish()
         }
 
         btnBsa.setOnClickListener {
+            val intent = Intent(this, BsaActivity::class.java)
+            intent.putExtra("idPaziente", idPaziente)
+            startActivity(intent)
             finish()
         }
 

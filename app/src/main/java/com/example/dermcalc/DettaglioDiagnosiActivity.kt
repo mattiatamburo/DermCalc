@@ -26,8 +26,8 @@ class DettaglioDiagnosiActivity : AppCompatActivity()
             insets
         }
 
-        val idDiagnosi  = intent.getIntExtra("idDiagnosi", -1)
-        val db          = DB_Manager(this)
+        val idDiagnosi      = intent.getIntExtra("idDiagnosi", -1)
+        val db              = DB_Manager(this)
 
         val txtTipo         = findViewById<TextView>(R.id.txtDettaglioTipo)
         val txtData         = findViewById<TextView>(R.id.txtDettaglioData)
@@ -52,12 +52,16 @@ class DettaglioDiagnosiActivity : AppCompatActivity()
                 if (diagnosi.note.isNotEmpty())
                     txtNote.text = diagnosi.note
 
-            } else {
-                Toast.makeText(this, "Diagnosi non trovata nel database", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                Toast.makeText(this, getString(R.string.err_diagnosiDB), Toast.LENGTH_SHORT).show()
                 finish()
             }
-        } else {
-            Toast.makeText(this, "Errore caricamento ID", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(this, getString(R.string.err_diagnosiID), Toast.LENGTH_SHORT).show()
             finish()
         }
 

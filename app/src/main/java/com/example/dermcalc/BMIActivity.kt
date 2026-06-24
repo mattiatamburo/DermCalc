@@ -17,9 +17,9 @@ import java.util.Date
 
 class BmiActivity : AppCompatActivity()
 {
-    private var calcoloEffettuato = false
-    private var bmi = 0.0
-    private var statoClinico = ""
+    private var calcoloEffettuato   = false
+    private var bmi                 = 0.0
+    private var statoClinico        = ""
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -33,8 +33,8 @@ class BmiActivity : AppCompatActivity()
             insets
         }
 
-        val db = DB_Manager(this)
-        val idPaziente = intent.getIntExtra("idPaziente", -1)
+        val db                  = DB_Manager(this)
+        val idPaziente          = intent.getIntExtra("idPaziente", -1)
 
         val editPeso            = findViewById<EditText>(R.id.edit_Peso)
         val editAltezza         = findViewById<EditText>(R.id.edit_Altezza)
@@ -53,8 +53,7 @@ class BmiActivity : AppCompatActivity()
 
                 if (strPeso.isEmpty() || strAltezza.isEmpty())
                 {
-                    Toast.makeText(this, "Compila tutti i campi richiesti", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(this, getString(R.string.err_vuoto), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
@@ -63,26 +62,25 @@ class BmiActivity : AppCompatActivity()
 
                 if (peso <= 0.0 || altezzaCm <= 0.0)
                 {
-                    Toast.makeText(this, "Inserisci valori maggiori di zero", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(this, getString(R.string.err_neg), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
                 val altezzaM    = altezzaCm / 100.0
                 bmi             = peso      / (altezzaM * altezzaM)
 
-                statoClinico =  if      (bmi < 18.5)                    "Sottopeso"
-                                else if (bmi >= 18.5 && bmi <= 24.99)   "Normopeso"
-                                else if (bmi >= 25.0 && bmi <= 29.99)   "Sovrappeso"
-                                else                                    "Obesità"
+                statoClinico =  if      (bmi < 18.5)                    getString(R.string.stato_Sottopeso)
+                                else if (bmi >= 18.5 && bmi <= 24.99)   getString(R.string.stato_Normopeso)
+                                else if (bmi >= 25.0 && bmi <= 29.99)   getString(R.string.stato_Sovrappeso)
+                                else                                    getString(R.string.stato_Obesità)
 
-                textRisultatoBmi.text       = String.format("BMI: %.2f", bmi)
-                textStatoBmi    .text       = "Stato: $statoClinico"
+                textRisultatoBmi.text       = getString(R.string.text_RisultatoBMI,     bmi)
+                textStatoBmi    .text       = getString(R.string.text_StatoBMI,         statoClinico)
 
                 editPeso        .isEnabled  = false
                 editAltezza     .isEnabled  = false
 
-                btnCalcolaSalva .text       = "Salva Diagnosi"
+                btnCalcolaSalva .text       = getString(R.string.btn_Salva)
                 btnModifica     .visibility = View.VISIBLE
                 calcoloEffettuato           = true
 
@@ -94,28 +92,28 @@ class BmiActivity : AppCompatActivity()
 
                 val idCartellaClinica   = db.getCartellaClinica(idPaziente);
 
-                val noteDiagnosi        = "Valori inseriti -> Peso: ${editPeso.text} kg, Altezza: ${editAltezza.text} cm."
+
+                val pesoFloat           = editPeso      .text.toString().toFloat()
+                val altezzaInt          = editAltezza   .text.toString().toInt  ()
+                val noteDiagnosi        = getString(R.string.note_BMI, pesoFloat, altezzaInt)
 
                 if (idPaziente != -1 && idDottore != -1)
                 {
                     val nuovaDiagnosi = Diagnosi(
-                        idDottore = idDottore,
-                        dataDiagnosi = Date(),
-                        tipoCalcolatore = "BMI",
-                        punteggioTotale = bmi,
-                        severita = statoClinico,
-                        idCartellaClinica = idCartellaClinica,
-                        note = noteDiagnosi
+                        idDottore           = idDottore,
+                        dataDiagnosi        = Date(),
+                        tipoCalcolatore     = "BMI",
+                        punteggioTotale     = bmi,
+                        severita            = statoClinico,
+                        idCartellaClinica   = idCartellaClinica,
+                        note                = noteDiagnosi
                     )
 
                     db.insertDiagnosi(nuovaDiagnosi)
                     finish()
-
                 }
                 else
-                {
-                    Toast.makeText(this, "Errore: Paziente non valido", Toast.LENGTH_SHORT).show()
-                }
+                    Toast.makeText(this, getString(R.string.err_paz), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -125,7 +123,7 @@ class BmiActivity : AppCompatActivity()
 
             btnModifica     .visibility = View.GONE
 
-            btnCalcolaSalva .text       = "Calcola"
+            btnCalcolaSalva .text       = getString(R.string.btn_Calcola)
             calcoloEffettuato           = false
         }
 

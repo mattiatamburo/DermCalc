@@ -1,59 +1,132 @@
 <resources>
     //Dati generali
-    <string name="app_name">                        DermCalc                                            </string>
+    <string name="app_name">                        DermCalc                                                                                            </string>
 
     //Pagina Login
-    <string name="title_activity_login">            LoginActivity                                       </string>
-    <string name="title_login">                     Login                                               </string>
-    <string name="textField_email">                 Email                                               </string>
-    <string name="textField_password">              Password                                            </string>
-    <string name="btn_login">                       Login                                               </string>
+    <string name="title_activity_login">            LoginActivity                                                                                       </string>
+    <string name="title_login">                     Login                                                                                               </string>
+    <string name="textField_email">                 Email                                                                                               </string>
+    <string name="textField_password">              Password                                                                                            </string>
+    <string name="btn_login">                       Login                                                                                               </string>
 
     //Pagina Home
-    <string name="ricerca_Pazienti">                Cerca Pazienti…                                     </string>
+    <string name="ricerca_Pazienti">                Cerca Pazienti…                                                                                     </string>
 
     //Pagina Modifica Dati Personali
-    <string name="btn_Conferma">                    Conferma Modifiche                                  </string>
+    <string name="btn_Conferma">                    Conferma Modifiche                                                                                  </string>
+    <string name="datiAggiornati">                  Dati aggiornati                                                                                     </string>
+    <string name="err_modifica">                    Modifica non riuscita                                                                               </string>
 
     //Pagina Paziente
-    <string name="ricerca_Diagnosi">                Cerca Diagnosi…                                     </string>
-    <string name="btn_inserisci_Diagnosi">          Inserisci nuova Diagnosi                            </string>
-    <string name="text_Cellulare">                  Cellulare                                           </string>
-    <string name="text_CodFiscale">                 Codice Fiscale                                      </string>
-    <string name="text_DataNascita">                Data di Nascita                                     </string>
-    <string name="text_Emergenza">                  Cont. Emergenza                                     </string>
-    <string name="text_Email">                      Email                                               </string>
-    <string name="text_NomeCognome">                Nome e Cognome                                        </string>"
+    <string name="ricerca_Diagnosi">                Cerca Diagnosi…                                                                                     </string>
+    <string name="btn_inserisci_Diagnosi">          Inserisci nuova Diagnosi                                                                            </string>
+    <string name="text_Cellulare">                  Cellulare                                                                                           </string>
+    <string name="text_CodFiscale">                 Codice Fiscale                                                                                      </string>
+    <string name="text_DataNascita">                Data di Nascita                                                                                     </string>
+    <string name="text_Emergenza">                  Cont. Emergenza                                                                                     </string>
+    <string name="text_Email">                      Email                                                                                               </string>
+    <string name="text_NomeCognome">                Nome e Cognome                                                                                      </string>
 
     //Pagina Selezione Calcolatore
-    <string name="title_Selezione_Calcolatore">     Nuova Diagnosi                                      </string>
-    <string name="desc_Selezione_Calcolatore">      Seleziona il calcolatore clinico da utilizzare:     </string>
-    <string name="btn_PASI">                        PASI                                                </string>
-    <string name="btn_EASI">                        EASI                                                </string>
-    <string name="btn_BSA">                         BSA                                                 </string>
-    <string name="btn_BMI">                         BMI                                                 </string>
-    <string name="btn_Annulla">                     Annulla                                             </string>
+    <string name="title_Selezione_Calcolatore">     Nuova Diagnosi                                                                                      </string>
+    <string name="desc_Selezione_Calcolatore">      Seleziona il calcolatore clinico da utilizzare:                                                     </string>
+    <string name="btn_PASI">                        PASI                                                                                                </string>
+    <string name="btn_EASI">                        EASI                                                                                                </string>
+    <string name="btn_BSA">                         BSA                                                                                                 </string>
+    <string name="btn_BMI">                         BMI                                                                                                 </string>
+    <string name="btn_Indietro">                    Indietro                                                                                            </string>
+
+    //Parti Comuni Calcolatori
+    <string name="btn_Calcola">                     Calcola                                                                                             </string>
+    <string name="btn_Salva">                       Salva Diagnosi                                                                                      </string>
+    <string name="btn_Annulla">                     Annulla                                                                                             </string>
+    <string name="btn_Modifica">                    Annulla e modifica i dati                                                                           </string>
+    <string name="err_paz">                         Errore: Paziente o Dottore non valido                                                               </string>
+    <string name="stato_Lieve">                     Lieve                                                                                               </string>
+    <string name="stato_Moderata">                  Moderata                                                                                            </string>
+    <string name="stato_Severa">                    Severa                                                                                              </string>
+    <string name="text_area">                       Area coinvolta % (0–100)                                                                            </string>
+    <string name="text_Testa">                      1. Testa (H)                                                                                        </string>
+    <string name="text_ArtiSup">                    2. Arti Superiori (U)                                                                               </string>
+    <string name="text_Tronco">                     3. Tronco (T)                                                                                       </string>
+    <string name="text_ArtiInf">                    4. Arti Inferiori (L)                                                                               </string>
+    <string name="err_dati">                        Errore nei dati inseriti.                                                                           </string>
+    <string name="err_area">                        L\'area percentuale deve essere compresa tra 0 e 100.                                               </string>
+    <string name="err_campi">                       Compila tutti i campi numerici.                                                                     </string>
+
+    //Pagina Calcolatore PASI
+    <string name="title_PASI">                      Calcolatore PASI                                                                                    </string>
+    <string name="desc_PASI">                       Inserisci valori da 0 a 4 per i parametri clinici e da 0 a 100 per l\'area coinvolta.                </string>
+    <string name="err_parametri">                   I parametri Eritema, Indurimento e Desquamazione devono essere compresi tra 0 e 4.                  </string>
+    <string name="err_lettura">                     Errore nella lettura dei campi numerici.                                                            </string>
+    <string name="text_RisultatoPASI">              PASI Totale: %1$.1f                                                                                 </string>
+    <string name="text_SeveritaPASI">               Classe di Severità: %1$s                                                                            </string>
+    <string name="text_eritema">                    Erimeta (0–4)                                                                                       </string>
+    <string name="text_indurimento">                Indurim. (0–4)                                                                                      </string>
+    <string name="text_desquamazione">              Desquam. (0–4)                                                                                      </string>
+    <string name="nota_diagnosi_PASI">              Distretti analizzati:\n
+                                                    • Testa -> E:%1$d, I:%2$d, D:%3$d (Area: %13$.1f%%)\n
+                                                    • Arti Sup -> E:%4$d, I:%5$d, D:%6$d (Area: %14$.1f%%)\n
+                                                    • Tronco -> E:%7$d, I:%8$d, D:%9$d (Area: %15$.1f%%)\n
+                                                    • Arti Inf -> E:%10$d, I:%11$d, D:%12$d (Area: %16$.1f%%)                                           </string>
+
+    //Pagina Calcolatore EASI
+    <string name="title_EASI">                      Calcolatore EASI                                                                                    </string>
+    <string name="desc_EASI">                       Inserisci i valori clinici (0–3) e l\'area coinvolta (0–100%).                                      </string>
+    <string name="text_eritemaEASI">                Eritema (0–3)                                                                                       </string>
+    <string name="text_edemaEASI">                  Edema (0–3)                                                                                         </string>
+    <string name="text_escoriazioneEASI">           Escoriaz. (0–3)                                                                                     </string>
+    <string name="text_lichenifEASI">               Lichenif. (0–3)                                                                                     </string>
+    <string name="text_RisultatoEASI">              EASI Totale: %1$.1f                                                                                 </string>
+    <string name="text_SeveritaEASI">               Classe di Severità: %1$s                                                                            </string>
+    <string name="err_parametriEASI">               Errore: I segni clinici EASI vanno da 0 a 3.                                                        </string>
+    <string name="nota_diagnosi_EASI">              Distretti analizzati:\n
+                                                    • Testa (H) -> E:%1$d, I:%2$d, Ex:%3$d, L:%4$d (Area: %17$.1f%%)\n
+                                                    • Arti Sup (U) -> E:%5$d, I:%6$d, Ex:%7$d, L:%8$d (Area: %18$.1f%%)\n
+                                                    • Tronco (T) -> E:%9$d, I:%10$d, Ex:%11$d, L:%12$d (Area: %19$.1f%%)\n
+                                                    • Arti Inf (L) -> E:%13$d, I:%14$d, Ex:%15$d, L:%16$d (Area: %20$.1f%%)                             </string>
 
     //Pagina Calcolatore BMI
-    <string name="title_BMI">                       Calcolatore BMI                                     </string>
-    <string name="text_Peso">                       Peso (kg):                                          </string>
-    <string name="text_Altezza">                    Altezza (cm):                                       </string>
-    <string name="text_RisultatoBMIDefault">        BMI: --                                             </string>
-    <string name="text_RisultatoBMI">               BMI:                                                </string>
-    <string name="text_StatoBMIDefault">            Stato: --                                           </string>
-    <string name="text_StatoBMI">                   Stato:                                              </string>
-    <string name="btn_CalcolaSalva">                Calcola                                             </string>
-    <string name="btn_Indietro">                    Indietro                                            </string>
-    <string name="btn_Modifica">                    Annulla e modifica i dati                           </string>
+    <string name="title_BMI">                       Calcolatore BMI                                                                                     </string>
+    <string name="text_Peso">                       Peso (kg):                                                                                          </string>
+    <string name="text_Altezza">                    Altezza (cm):                                                                                       </string>
+    <string name="text_RisultatoBMIDefault">        BMI: --                                                                                             </string>
+    <string name="text_RisultatoBMI">               BMI: %1$.2f                                                                                         </string>
+    <string name="text_StatoBMIDefault">            Stato: --                                                                                           </string>
+    <string name="text_StatoBMI">                   Stato: %1$s                                                                                         </string>
+    <string name="err_vuoto">                       Compila tutti i campi richiesti                                                                     </string>
+    <string name="err_neg">                         Inserisci valori maggiori di zero                                                                   </string>
+    <string name="stato_Sottopeso">                 Sottopeso                                                                                           </string>
+    <string name="stato_Normopeso">                 Normopeso                                                                                           </string>
+    <string name="stato_Sovrappeso">                Sovrappeso                                                                                          </string>
+    <string name="stato_Obesità">                   Obesità                                                                                             </string>
+    <string name="note_BMI">                        Valori inseriti -> Peso: %1$.2f kg, Altezza: %2$d cm.                                               </string>
+    
+    //Pagina Calcolatore BSA
+    <string name="title_BSA">                       Calcolatore BSA                                                                                     </string>
+    <string name="desc_BSA">                        Inserisci la percentuale di area coinvolta (da 0 a 100) per ogni distretto corporeo.                </string>
+    <string name="bsa_Testa">                       1. Testa/Collo (10% del corpo)                                                                      </string>
+    <string name="bsa_ArtiSup">                     2. Arti Superiori (20% del corpo)                                                                   </string>
+    <string name="bsa_Tronco">                      3. Tronco (30% del corpo)                                                                           </string>
+    <string name="bsa_ArtiInf">                     4. Arti Inferiori (40% del corpo)                                                                   </string>
+    <string name="hint_BSA">                        Area coinvolta % (0–100)                                                                            </string>
+    <string name="err_distretti">                   Compila tutti i distretti.                                                                          </string>
+    <string name="err_perc">                        Errore: Le percentuali devono essere tra 0 e 100.                                                   </string>
+    <string name="text_RisultatoBSA">               BSA Totale: %1$.2f %%                                                                               </string>
+    <string name="text_GravitàBSA">                 Gravità: %1$s                                                                                       </string>
+    <string name="note_BSA">                        Valori inseriti -> Testa: %1$.1f, Arti Superiori: %2$.1f, Tronco: %3$.1f, Arti Inferiori: %4$.1f.   </string>
+
 
     //Pagina Dettaglio Diagnosi
-    <string name="textTitolo">                      Dettaglio Diagnosi                                  </string>
-    <string name="textDettaglioTipo">               Calcolatore: %1$s                                   </string>
-    <string name="textDettaglioDataDefault">        Data: --/--/----                                    </string>
-    <string name="textDettaglioData">               Data: %1$s                                          </string>
-    <string name="textDettaglioRisultato">          Punteggio Totale:                                   </string>
-    <string name="textDettaglioSeverita">           Classe di Severità: %1$s                            </string>
-    <string name="textTitoloNote">                  Note Cliniche                                       </string>
-    <string name="textDettaglioNote">               Nessuna nota inserita per questa valutazione.       </string>
-    <string name="btnChiudiDettaglio">              Chiudi Dettaglio                                    </string>
+    <string name="textTitolo">                      Dettaglio Diagnosi                                                                                  </string>
+    <string name="textDettaglioTipo">               Calcolatore: %1$s                                                                                   </string>
+    <string name="textDettaglioDataDefault">        Data: --/--/----                                                                                    </string>
+    <string name="textDettaglioData">               Data: %1$s                                                                                          </string>
+    <string name="textDettaglioRisultato">          Punteggio Totale:                                                                                   </string>
+    <string name="textDettaglioSeverita">           Classe di Severità: %1$s                                                                            </string>
+    <string name="textTitoloNote">                  Note Cliniche                                                                                       </string>
+    <string name="textDettaglioNote">               Nessuna nota inserita per questa valutazione.                                                       </string>
+    <string name="btnChiudiDettaglio">              Chiudi Dettaglio                                                                                    </string>
+    <string name="err_diagnosiDB">                  Diagnosi non trovata nel database                                                                   </string>
+    <string name="err_diagnosiID">                  Errore caricamento ID                                                                               </string>
 </resources>
