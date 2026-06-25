@@ -22,6 +22,8 @@ import java.util.Locale
 
 class ProfiloPaziente : AppCompatActivity()
 {
+    private lateinit var adapter: DiagnosiAdapter
+
     override fun onResume()
     {
         super.onResume()
@@ -31,12 +33,11 @@ class ProfiloPaziente : AppCompatActivity()
 
         if (id_paziente != -1)
         {
-            val recyclerView = findViewById<RecyclerView>(R.id.listaDiagnosi)
-
             val listaAggiornata = db.getDiagnosiByPaziente(id_paziente)
 
-            val adapter = DiagnosiAdapter(listaAggiornata)
-            recyclerView.adapter = adapter
+            if (::adapter.isInitialized) {
+                adapter.updateData(listaAggiornata)
+            }
         }
     }
 
@@ -52,7 +53,7 @@ class ProfiloPaziente : AppCompatActivity()
             insets
         }
 
-        val db = DB_Manager(this)
+        val db              = DB_Manager(this)
         val sharedPref      = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
         val id_paziente     = intent.getIntExtra("idPaziente", -1)
         val id_dottore      = sharedPref.getInt("idDottore", -1)
@@ -66,7 +67,8 @@ class ProfiloPaziente : AppCompatActivity()
         val txtEmail                = findViewById<TextView>    (R.id.txtEmail)
         val txtUpperName            = findViewById<TextView>    (R.id.txtName)
         val btnHome                 = findViewById<ImageButton> (R.id.btnHome)
-        val btnInsesrisciDiagnosi   = findViewById<Button>      (R.id.btnInserisciDiagnosi)
+        val btnProfilo              = findViewById<ImageButton> (R.id.btnProfilo)
+        val btnInserisciDiagnosi    = findViewById<Button>      (R.id.btnInserisciDiagnosi)
         
         if (paziente != null)
         {
@@ -85,7 +87,7 @@ class ProfiloPaziente : AppCompatActivity()
             recyclerView.layoutManager = LinearLayoutManager(this)
 
             val listaTest = db.getDiagnosiByPaziente(paziente.idPaziente)
-            val adapter = DiagnosiAdapter(listaTest)
+            adapter = DiagnosiAdapter(listaTest)
             recyclerView.adapter = adapter
 
             val barraRicerca: EditText = findViewById(R.id.ricercaDiagnosi)
@@ -102,13 +104,16 @@ class ProfiloPaziente : AppCompatActivity()
 
         }
 
-
+        btnProfilo.setOnClickListener {
+            val intent = Intent(this, ProfiloActivity::class.java)
+            startActivity(intent)
+        }
 
         btnHome.setOnClickListener {
             finish()
         }
 
-        btnInsesrisciDiagnosi.setOnClickListener {
+        btnInserisciDiagnosi.setOnClickListener {
             val intent = Intent(this, SelezioneCalcolatoreActivity::class.java)
             intent.putExtra("idPaziente", id_paziente)
             startActivity(intent)

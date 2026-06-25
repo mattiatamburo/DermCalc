@@ -1,127 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="?attr/android:windowBackground">
+    android:background="?attr/android:windowBackground"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/text_Calcolatore_BMI"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/title_BMI"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorOnSurface"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/text_Peso"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:text="@string/text_Peso"
-        android:textColor="?attr/colorOnSurface"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_Peso"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edit_Peso" />
+        <TextView
+            android:id="@+id/text_Calcolatore_BMI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/title_BMI"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edit_Peso"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textColor="?attr/colorOnSurface"
-        android:textColorHint="?attr/colorOnSurfaceVariant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_Peso"
-        app:layout_constraintTop_toBottomOf="@+id/text_Calcolatore_BMI" />
+        <TextView
+            android:id="@+id/text_Peso"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_Peso"
+            android:textColor="?attr/colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_Peso"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edit_Peso" />
 
-    <TextView
-        android:id="@+id/text_Altezza"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:text="@string/text_Altezza"
-        android:textColor="?attr/colorOnSurface"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_Altezza"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edit_Altezza" />
+        <EditText
+            android:id="@+id/edit_Peso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOnSurfaceVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_Peso"
+            app:layout_constraintTop_toBottomOf="@+id/text_Calcolatore_BMI" />
 
-    <EditText
-        android:id="@+id/edit_Altezza"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="number"
-        android:textColor="?attr/colorOnSurface"
-        android:textColorHint="?attr/colorOnSurfaceVariant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_Altezza"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Peso" />
+        <TextView
+            android:id="@+id/text_Altezza"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_Altezza"
+            android:textColor="?attr/colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_Altezza"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edit_Altezza" />
 
-    <TextView
-        android:id="@+id/text_RisultatoBMI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="@string/text_RisultatoBMIDefault"
-        android:textSize="18sp"
-        android:textColor="?attr/colorOnSurface"
-        app:layout_constraintEnd_toStartOf="@+id/text_StatoBMI"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Altezza" />
+        <EditText
+            android:id="@+id/edit_Altezza"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:inputType="number"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOnSurfaceVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_Altezza"
+            app:layout_constraintTop_toBottomOf="@+id/edit_Peso" />
 
-    <TextView
-        android:id="@+id/text_StatoBMI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_StatoBMIDefault"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/text_RisultatoBMI"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_RisultatoBMI"
-        app:layout_constraintTop_toTopOf="@+id/text_RisultatoBMI" />
+        <TextView
+            android:id="@+id/text_RisultatoBMI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="@string/text_RisultatoBMIDefault"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/text_StatoBMI"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_Altezza" />
 
-    <Button
-        android:id="@+id/btn_Annulla"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="@string/btn_Annulla"
-        style="?attr/materialButtonOutlinedStyle"
-        app:layout_constraintEnd_toStartOf="@+id/btn_CalcolaSalva"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_RisultatoBMI" />
+        <TextView
+            android:id="@+id/text_StatoBMI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_StatoBMIDefault"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/text_RisultatoBMI"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_RisultatoBMI"
+            app:layout_constraintTop_toTopOf="@+id/text_RisultatoBMI" />
 
-    <Button
-        android:id="@+id/btn_CalcolaSalva"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_Calcola"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_Annulla"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_Annulla"
-        app:layout_constraintTop_toTopOf="@+id/btn_Annulla" />
+        <Button
+            android:id="@+id/btn_Annulla"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="@string/btn_Annulla"
+            app:layout_constraintEnd_toStartOf="@+id/btn_CalcolaSalva"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_RisultatoBMI" />
 
-    <Button
-        android:id="@+id/btn_Modifica"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        style="?android:attr/borderlessButtonStyle"
-        android:text="@string/btn_Modifica"
-        android:textColor="?attr/colorOnSurfaceVariant"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_Annulla" />
+        <Button
+            android:id="@+id/btn_CalcolaSalva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_Calcola"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_Annulla"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_Annulla"
+            app:layout_constraintTop_toTopOf="@+id/btn_Annulla" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_Modifica"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/btn_Modifica"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_Annulla" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

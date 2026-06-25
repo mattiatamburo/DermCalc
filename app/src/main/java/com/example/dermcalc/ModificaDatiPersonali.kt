@@ -32,7 +32,6 @@ class ModificaDatiPersonali : AppCompatActivity()
         val dottore             = db.getDottoreById(id)
         val accesso             = db.getAccessoByDottoreId(id)
 
-        val txtUpperName        = findViewById<TextView>    (R.id.txtName)
         val txtCellulare        = findViewById<EditText>    (R.id.txtCellulare)
         val txtEmail            = findViewById<EditText>    (R.id.txtEmail)
 
@@ -41,14 +40,11 @@ class ModificaDatiPersonali : AppCompatActivity()
         val txtConfirmPassword  = findViewById<EditText>    (R.id.txtConfirmPassword)
 
         val btnConferma         = findViewById<Button>      (R.id.btnConferma)
+        val btnIndietro         = findViewById<Button>      (R.id.btn_Indietro)
 
 
         if (dottore != null)
         {
-            txtUpperName.text = "${
-                dottore.nome.lowercase().replaceFirstChar { it.uppercase() }
-            } ${dottore.cognome.lowercase().replaceFirstChar { it.uppercase() }}"
-
             txtCellulare    .setText(dottore.cellulare)
             txtEmail        .setText(dottore.email)
         }
@@ -129,6 +125,10 @@ class ModificaDatiPersonali : AppCompatActivity()
                     Toast.makeText(this, getString(R.string.err_modifica), Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        btnIndietro.setOnClickListener{
+            finish()
         }
     }
 

@@ -27,7 +27,7 @@ data class Diagnosi(
     var dataDiagnosi: Date,
     var tipoCalcolatore: String,
     val punteggioTotale: Double,
-    val severita: String,
+    val severita: Int,
     var idCartellaClinica: Int,
     var note: String
 )

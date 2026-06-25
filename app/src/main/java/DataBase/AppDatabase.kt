@@ -14,9 +14,10 @@ import androidx.room.TypeConverters
         CartellaClinica::class,
         OspedaleDottore::class
     ],
-    version = 2
+    version = 1
 )
 @TypeConverters(Converters::class)
-abstract class AppDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase()
+{
     abstract fun dbInterface(): DB_Interface
 }

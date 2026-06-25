@@ -14,12 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.util.Date
+import java.util.Locale
 
 class BmiActivity : AppCompatActivity()
 {
     private var calcoloEffettuato   = false
     private var bmi                 = 0.0
-    private var statoClinico        = ""
+    private var statoClinico        = 0
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -48,34 +49,55 @@ class BmiActivity : AppCompatActivity()
         btnCalcolaSalva.setOnClickListener {
             if (!calcoloEffettuato)
             {
-                val strPeso     = editPeso      .text.toString()
-                val strAltezza  = editAltezza   .text.toString()
+                var hasError = false
 
-                if (strPeso.isEmpty() || strAltezza.isEmpty())
+                val strPeso = editPeso.text.toString().trim()
+                if (strPeso.isEmpty())
                 {
-                    Toast.makeText(this, getString(R.string.err_vuoto), Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
+                    editPeso.error = getString(R.string.err_campi)
+                    hasError = true
+                }
+                else
+                {
+                    val peso = strPeso.toDoubleOrNull()
+                    if (peso == null || peso <= 0.0) {
+                        editPeso.error = getString(R.string.err_neg)
+                        hasError = true
+                    }
                 }
 
-                val peso        = strPeso   .toDoubleOrNull() ?: 0.0
-                val altezzaCm   = strAltezza.toDoubleOrNull() ?: 0.0
-
-                if (peso <= 0.0 || altezzaCm <= 0.0)
+                val strAltezza = editAltezza.text.toString().trim()
+                if (strAltezza.isEmpty())
                 {
-                    Toast.makeText(this, getString(R.string.err_neg), Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
+                    editAltezza.error = getString(R.string.err_campi)
+                    hasError = true
                 }
+                else
+                {
+                    val altezzaCm = strAltezza.toDoubleOrNull()
+                    if (altezzaCm == null || altezzaCm <= 0.0)
+                    {
+                        editAltezza.error = getString(R.string.err_neg)
+                        hasError = true
+                    }
+                }
+
+                if (hasError)
+                  return@setOnClickListener
+
+                val peso        = strPeso.toDouble()
+                val altezzaCm   = strAltezza.toDouble()
 
                 val altezzaM    = altezzaCm / 100.0
                 bmi             = peso      / (altezzaM * altezzaM)
 
-                statoClinico =  if      (bmi < 18.5)                    getString(R.string.stato_Sottopeso)
-                                else if (bmi >= 18.5 && bmi <= 24.99)   getString(R.string.stato_Normopeso)
-                                else if (bmi >= 25.0 && bmi <= 29.99)   getString(R.string.stato_Sovrappeso)
-                                else                                    getString(R.string.stato_Obesità)
+                statoClinico =  if      (bmi < 18.5)                    0
+                                else if (bmi >= 18.5 && bmi <= 24.99)   1
+                                else if (bmi >= 25.0 && bmi <= 29.99)   2
+                                else                                    3
 
                 textRisultatoBmi.text       = getString(R.string.text_RisultatoBMI,     bmi)
-                textStatoBmi    .text       = getString(R.string.text_StatoBMI,         statoClinico)
+                textStatoBmi    .text       = getString(R.string.text_StatoBMI,         traduciStato(statoClinico))
 
                 editPeso        .isEnabled  = false
                 editAltezza     .isEnabled  = false
@@ -92,10 +114,9 @@ class BmiActivity : AppCompatActivity()
 
                 val idCartellaClinica   = db.getCartellaClinica(idPaziente);
 
-
                 val pesoFloat           = editPeso      .text.toString().toFloat()
                 val altezzaInt          = editAltezza   .text.toString().toInt  ()
-                val noteDiagnosi        = getString(R.string.note_BMI, pesoFloat, altezzaInt)
+                val noteDiagnosi        = "$pesoFloat|$altezzaInt"
 
                 if (idPaziente != -1 && idDottore != -1)
                 {
@@ -130,5 +151,13 @@ class BmiActivity : AppCompatActivity()
         btnAnnulla.setOnClickListener{
             finish()
         }
+    }
+
+    private fun traduciStato(stato: Int): String
+    {
+      if        (stato==0)  return getString(R.string.stato_Sottopeso)
+      else if   (stato==1)  return getString(R.string.stato_Normopeso)
+      else if   (stato==2)  return getString(R.string.stato_Sovrappeso)
+      else                  return getString(R.string.stato_Obesità)
     }
 }

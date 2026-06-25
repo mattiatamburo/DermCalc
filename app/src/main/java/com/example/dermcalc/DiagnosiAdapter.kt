@@ -14,6 +14,12 @@ class DiagnosiAdapter(private var listaDiagnosi: List<Diagnosi>) : RecyclerView.
 {
     private var filteredList: List<Diagnosi> = listaDiagnosi
 
+    fun updateData(nuovaLista: List<Diagnosi>)
+    {
+        listaDiagnosi = nuovaLista
+        filteredList = nuovaLista
+        notifyDataSetChanged()
+    }
     class DiagnosiViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         val texttipoCalcolatore     : TextView  = itemView.findViewById(R.id.textTipoCalcolatore)
@@ -34,9 +40,9 @@ class DiagnosiAdapter(private var listaDiagnosi: List<Diagnosi>) : RecyclerView.
         val formatter           = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ITALY)
 
         holder.texttipoCalcolatore  .text =                         DiagnosiCorrente.tipoCalcolatore
-        holder.textDataDiagnosi     .text = formatter.format(DiagnosiCorrente.dataDiagnosi)
-        holder.textSeverita         .text =                         DiagnosiCorrente.severita
-        holder.textID               .text =                         DiagnosiCorrente.idDiagnosi     .toString()
+        holder.textDataDiagnosi     .text =                         formatter       .format(DiagnosiCorrente.dataDiagnosi)
+        holder.textSeverita         .text =                         traduciSeverita (holder.itemView.context, DiagnosiCorrente.severita, DiagnosiCorrente.tipoCalcolatore)
+        holder.textID               .text =                         DiagnosiCorrente.idDiagnosi.toString()
 
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
@@ -54,14 +60,15 @@ class DiagnosiAdapter(private var listaDiagnosi: List<Diagnosi>) : RecyclerView.
     fun filter(query: String)
     {
         filteredList = if(query.isEmpty()) listaDiagnosi else {
-
             val searchTerms = query.trim().split("\\s+".toRegex())
 
-            listaDiagnosi.filter { item ->
+            val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ITALY)
 
+            listaDiagnosi.filter { item ->
                 val tipoCalcolatore = item.tipoCalcolatore
-                val dataDiagnosi    = item.dataDiagnosi     .toString()
-                val id              = item.idDiagnosi       .toString()
+
+                val dataDiagnosi    = formatter.format(item.dataDiagnosi)
+                val id              = item.idDiagnosi.toString()
 
                 searchTerms.all { term ->
                     tipoCalcolatore .contains(term, ignoreCase = true) ||
@@ -71,5 +78,22 @@ class DiagnosiAdapter(private var listaDiagnosi: List<Diagnosi>) : RecyclerView.
             }
         }
         notifyDataSetChanged()
+    }
+
+    private fun traduciSeverita(context: android.content.Context, severita: Int, calcolatore: String): String
+    {
+        if(calcolatore == "BMI")
+        {
+            if      (severita==0)   return context.getString(R.string.stato_Sottopeso)
+            else if (severita==1)   return context.getString(R.string.stato_Normopeso)
+            else if (severita==2)   return context.getString(R.string.stato_Sovrappeso)
+            else                    return context.getString(R.string.stato_Obesità)
+        }
+        else
+        {
+            if      (severita==0)   return context.getString(R.string.stato_Lieve)
+            else if (severita==1)   return context.getString(R.string.stato_Moderata)
+            else                    return context.getString(R.string.stato_Severa)
+        }
     }
 }

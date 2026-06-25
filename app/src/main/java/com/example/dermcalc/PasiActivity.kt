@@ -13,6 +13,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.snackbar.Snackbar
 import java.util.Date
 import java.util.Locale
 
@@ -20,7 +21,7 @@ class PasiActivity : AppCompatActivity()
 {
     private var calcoloEffettuato   = false
     private var pasiTotale          = 0.0
-    private var statoClinico        = ""
+    private var statoClinico        = 0
     private var parametriClinici    = listOf<Int>()
     private var parametriArea       = listOf<Double>()
 
@@ -63,13 +64,18 @@ class PasiActivity : AppCompatActivity()
         val editArtiInfD = findViewById<EditText>(R.id.editArtiInfDesquamazione)
         val editArtiInfA = findViewById<EditText>(R.id.editArtiInfArea)
 
-
-        val tuttiICampi = listOf(
-            editTestaE,     editTestaI,     editTestaD,     editTestaA,
-            editArtiSupE,   editArtiSupI,   editArtiSupD,   editArtiSupA,
-            editTroncoE,    editTroncoI,    editTroncoD,    editTroncoA,
-            editArtiInfE,   editArtiInfI,   editArtiInfD,   editArtiInfA
+        val campiClinici = listOf(
+            editTestaE,     editTestaI,     editTestaD,
+            editArtiSupE,   editArtiSupI,   editArtiSupD,
+            editTroncoE,    editTroncoI,    editTroncoD,
+            editArtiInfE,   editArtiInfI,   editArtiInfD
         )
+
+        val campiArea = listOf(
+            editTestaA, editArtiSupA, editTroncoA, editArtiInfA
+        )
+
+        val tuttiICampi = campiClinici + campiArea
 
         val btnCalcolaSalva     = findViewById<Button>      (R.id.btnCalcolaSalva)
         val btnModifica         = findViewById<Button>      (R.id.btnModifica)
@@ -81,84 +87,101 @@ class PasiActivity : AppCompatActivity()
         btnCalcolaSalva.setOnClickListener {
             if (!calcoloEffettuato)
             {
-                if (tuttiICampi.any { it.text.toString().isEmpty() })
+                var hasError = false
+
+                for (campo in campiClinici)
                 {
-                    Toast.makeText(this, getString(R.string.err_campi), Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                try
-                {
-                    // Lettura valori Testa
-                    val tE                  = editTestaE.text.toString().toInt()
-                    val tI                  = editTestaI.text.toString().toInt()
-                    val tD                  = editTestaD.text.toString().toInt()
-                    val tAreaPercentuale    = editTestaA.text.toString().toDouble()
-
-                    // Lettura valori Arti Superiori
-                    val uE                  = editArtiSupE.text.toString().toInt()
-                    val uI                  = editArtiSupI.text.toString().toInt()
-                    val uD                  = editArtiSupD.text.toString().toInt()
-                    val uAreaPercentuale    = editArtiSupA.text.toString().toDouble()
-
-                    // Lettura valori Tronco
-                    val trE                 = editTroncoE.text.toString().toInt()
-                    val trI                 = editTroncoI.text.toString().toInt()
-                    val trD                 = editTroncoD.text.toString().toInt()
-                    val trAreaPercentuale   = editTroncoA.text.toString().toDouble()
-
-                    // Lettura valori Arti Inferiori
-                    val lE                  = editArtiInfE.text.toString().toInt()
-                    val lI                  = editArtiInfI.text.toString().toInt()
-                    val lD                  = editArtiInfD.text.toString().toInt()
-                    val lAreaPercentuale    = editArtiInfA.text.toString().toDouble()
-
-                    parametriClinici    = listOf(tE, tI, tD, uE, uI, uD, trE, trI, trD, lE, lI, lD)
-                    parametriArea       = listOf(tAreaPercentuale, uAreaPercentuale, trAreaPercentuale, lAreaPercentuale)
-
-                    if (parametriClinici.any { it !in 0..4 })
+                    val testo = campo.text.toString().trim()
+                    if (testo.isEmpty())
                     {
-                        Toast.makeText(this, getString(R.string.err_parametri), Toast.LENGTH_LONG).show()
-                        return@setOnClickListener
+                        campo.error = getString(R.string.err_campi)
+                        hasError = true
                     }
-
-                    if (parametriArea.any { it !in 0.0..100.0 })
+                    else
                     {
-                        Toast.makeText(this, getString(R.string.err_area), Toast.LENGTH_LONG).show()
-                        return@setOnClickListener
+                        val valore = testo.toIntOrNull()
+                        if (valore == null || valore !in 0..4)
+                        {
+                            campo.error = getString(R.string.err_parametri)
+                            hasError = true
+                        }
                     }
-
-                    val tA  = calcolaPunteggioArea(tAreaPercentuale)
-                    val uA  = calcolaPunteggioArea(uAreaPercentuale)
-                    val trA = calcolaPunteggioArea(trAreaPercentuale)
-                    val lA  = calcolaPunteggioArea(lAreaPercentuale)
-
-                    val testaScore      = 0.1 * (tE + tI + tD) * tA
-                    val artiSupScore    = 0.2 * (uE + uI + uD) * uA
-                    val troncoScore     = 0.3 * (trE + trI + trD) * trA
-                    val artiInfScore    = 0.4 * (lE + lI + lD) * lA
-
-                    pasiTotale   = testaScore + artiSupScore + troncoScore + artiInfScore
-
-                    statoClinico =  if      (pasiTotale < 5.0)      getString(R.string.stato_Lieve)
-                                    else if (pasiTotale <= 10.0)    getString(R.string.stato_Moderata)
-                                    else                            getString(R.string.stato_Severa)
-
-                    txtRisultato    .text       = getString(R.string.text_RisultatoPASI,    pasiTotale)
-                    txtSeverita     .text       = getString(R.string.text_SeveritaPASI,     statoClinico)
-                    layoutRisultato .visibility = View.VISIBLE
-                    btnCalcolaSalva .text       = getString(R.string.btn_Salva)
-                    btnModifica     .visibility = View.VISIBLE
-
-                    tuttiICampi.forEach { it.isEnabled = false }
-
-                    calcoloEffettuato = true
-
                 }
-                catch (e: Exception)
+
+                for (campo in campiArea)
                 {
-                    Toast.makeText(this, getString(R.string.err_lettura), Toast.LENGTH_SHORT).show()
+                    val testo = campo.text.toString().trim()
+                    if (testo.isEmpty())
+                    {
+                        campo.error = getString(R.string.err_campi)
+                        hasError = true
+                    }
+                    else
+                    {
+                        val valore = testo.toDoubleOrNull()
+                        if (valore == null || valore !in 0.0..100.0)
+                        {
+                            campo.error = getString(R.string.err_area)
+                            hasError = true
+                        }
+                    }
                 }
+
+                if (hasError)
+                  return@setOnClickListener
+
+                // Lettura valori Testa
+                val tE                  = editTestaE.text.toString().toInt()
+                val tI                  = editTestaI.text.toString().toInt()
+                val tD                  = editTestaD.text.toString().toInt()
+                val tAreaPercentuale    = editTestaA.text.toString().toDouble()
+
+                // Lettura valori Arti Superiori
+                val uE                  = editArtiSupE.text.toString().toInt()
+                val uI                  = editArtiSupI.text.toString().toInt()
+                val uD                  = editArtiSupD.text.toString().toInt()
+                val uAreaPercentuale    = editArtiSupA.text.toString().toDouble()
+
+                // Lettura valori Tronco
+                val trE                 = editTroncoE.text.toString().toInt()
+                val trI                 = editTroncoI.text.toString().toInt()
+                val trD                 = editTroncoD.text.toString().toInt()
+                val trAreaPercentuale   = editTroncoA.text.toString().toDouble()
+
+                // Lettura valori Arti Inferiori
+                val lE                  = editArtiInfE.text.toString().toInt()
+                val lI                  = editArtiInfI.text.toString().toInt()
+                val lD                  = editArtiInfD.text.toString().toInt()
+                val lAreaPercentuale    = editArtiInfA.text.toString().toDouble()
+
+                parametriClinici    = listOf(tE, tI, tD, uE, uI, uD, trE, trI, trD, lE, lI, lD)
+                parametriArea       = listOf(tAreaPercentuale, uAreaPercentuale, trAreaPercentuale, lAreaPercentuale)
+
+                val tA  = calcolaPunteggioArea(tAreaPercentuale)
+                val uA  = calcolaPunteggioArea(uAreaPercentuale)
+                val trA = calcolaPunteggioArea(trAreaPercentuale)
+                val lA  = calcolaPunteggioArea(lAreaPercentuale)
+
+                val testaScore      = 0.1 * (tE + tI + tD) * tA
+                val artiSupScore    = 0.2 * (uE + uI + uD) * uA
+                val troncoScore     = 0.3 * (trE + trI + trD) * trA
+                val artiInfScore    = 0.4 * (lE + lI + lD) * lA
+
+                pasiTotale   = testaScore + artiSupScore + troncoScore + artiInfScore
+
+                statoClinico =  if      (pasiTotale < 5.0)      0
+                                else if (pasiTotale <= 10.0)    1
+                                else                            2
+
+                txtRisultato    .text       = getString(R.string.text_RisultatoPASI,    pasiTotale)
+                txtSeverita     .text       = getString(R.string.text_SeveritaPASI,     traduciStato(statoClinico))
+                layoutRisultato .visibility = View.VISIBLE
+                btnCalcolaSalva .text       = getString(R.string.btn_Salva)
+                btnModifica     .visibility = View.VISIBLE
+
+                tuttiICampi.forEach { it.isEnabled = false }
+
+                calcoloEffettuato = true
             }
             else
             {
@@ -167,20 +190,7 @@ class PasiActivity : AppCompatActivity()
 
                 val idCartellaClinica   = db.getCartellaClinica(idPaziente)
 
-
-                val noteDiagnosi = getString(
-                    R.string.nota_diagnosi_PASI,
-
-                    parametriClinici[0], parametriClinici[1],   parametriClinici[2],
-                    parametriClinici[3], parametriClinici[4],   parametriClinici[5],
-                    parametriClinici[6], parametriClinici[7],   parametriClinici[8],
-                    parametriClinici[9], parametriClinici[10],  parametriClinici[11],
-
-                    parametriArea[0],
-                    parametriArea[1],
-                    parametriArea[2],
-                    parametriArea[3]
-                )
+                val noteDiagnosi        = (parametriClinici.map { it.toString() } + parametriArea.map { it.toString() }).joinToString("|")
 
                 if (idPaziente != -1 && idDottore != -1)
                 {
@@ -199,7 +209,6 @@ class PasiActivity : AppCompatActivity()
                 }
                 else
                     Toast.makeText(this, getString(R.string.err_paz), Toast.LENGTH_SHORT).show()
-
             }
         }
 
@@ -226,5 +235,12 @@ class PasiActivity : AppCompatActivity()
         else if (percentuale < 70.0)    return 4
         else if (percentuale < 90.0)    return 5
         else                            return 6
+    }
+
+    private fun traduciStato(stato: Int): String
+    {
+        if        (stato==0)  return getString(R.string.stato_Lieve)
+        else if   (stato==1)  return getString(R.string.stato_Moderata)
+        else                  return getString(R.string.stato_Severa)
     }
 }

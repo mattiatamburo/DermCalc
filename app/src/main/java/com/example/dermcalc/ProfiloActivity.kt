@@ -14,11 +14,19 @@ import androidx.core.content.edit
 import androidx.core.text.HtmlCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 class ProfiloActivity : AppCompatActivity()
 {
+    override fun onResume()
+    {
+        super.onResume()
+
+        setDatiDottore()
+    }
+
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -32,15 +40,49 @@ class ProfiloActivity : AppCompatActivity()
             insets
         }
 
+        val btnHome             = findViewById<ImageButton> (R.id.btnHome)
+        val btnModifica         = findViewById<Button>      (R.id.btnModifica)
+        val btnLogout           = findViewById<Button>      (R.id.btnLogout)
+        val btnProfilo          = findViewById<ImageButton> (R.id.btnProfilo)
+        val sharedPref          = getSharedPreferences      ("DermCalcPrefs", MODE_PRIVATE)
+
+        btnHome.setImageResource(R.drawable.ic_arrow_back)
+        btnProfilo.isClickable  = false
+        btnProfilo.isFocusable  = false
+        btnProfilo.background   = null
+
+        setDatiDottore()
+
+        btnHome.setOnClickListener {
+            finish()
+        }
+
+        btnModifica.setOnClickListener {
+            val intent = Intent(this, ModificaDatiPersonali::class.java)
+            startActivity(intent)
+        }
+
+
+        btnLogout.setOnClickListener {
+            sharedPref.edit {
+                putBoolean("isLoggedIn", false)
+                putInt("idDottore", -1)
+            }
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun setDatiDottore()
+    {
         val sharedPref          = getSharedPreferences      ("DermCalcPrefs", MODE_PRIVATE)
         val txtUpperName        = findViewById<TextView>    (R.id.txtName)
         val textViewCellulare   = findViewById<TextView>    (R.id.textViewCellulare)
         val textViewCodFiscale  = findViewById<TextView>    (R.id.textViewCodFiscale)
         val textViewEmail       = findViewById<TextView>    (R.id.textViewEmail)
         val textViewDataNascita = findViewById<TextView>    (R.id.textViewDataNascita)
-        val btnHome             = findViewById<ImageButton> (R.id.btnHome)
-        val btnModifica         = findViewById<Button>      (R.id.btnModifica)
-        val btnLogout           = findViewById<Button>      (R.id.btnLogout)
 
         val db                  = DB_Manager(this)
         val id                  = sharedPref.getInt("idDottore", -1)
@@ -56,26 +98,6 @@ class ProfiloActivity : AppCompatActivity()
             // Formattazione della data
             val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
             textViewDataNascita.text = formatter.format(dottore.dataNascita)
-        }
-
-        btnHome.setOnClickListener {
-            finish()
-        }
-
-        btnModifica.setOnClickListener {
-            val intent = Intent(this, ModificaDatiPersonali::class.java)
-            startActivity(intent)
-        }
-
-        btnLogout.setOnClickListener {
-            sharedPref.edit {
-                putBoolean("isLoggedIn", false)
-                putInt("idDottore", -1)
-            }
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
         }
     }
 }

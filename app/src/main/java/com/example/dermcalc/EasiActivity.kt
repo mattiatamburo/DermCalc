@@ -20,7 +20,7 @@ class EasiActivity : AppCompatActivity()
 {
     private var calcoloEffettuato   = false
     private var easiTotale          = 0.0
-    private var statoClinico        = ""
+    private var statoClinico        = 0
     private var parametriClinici    = listOf<Int>()
     private var parametriArea       = listOf<Double>()
 
@@ -67,12 +67,18 @@ class EasiActivity : AppCompatActivity()
         val eLLich      = findViewById<EditText>(R.id.editArtiInfLichenEasi)
         val eLArea      = findViewById<EditText>(R.id.editArtiInfAreaEasi)
 
-        val tuttiICampi = listOf(
-            eHErit, eHEdem, eHEsco, eHLich, eHArea,
-            eUErit, eUEdem, eUEsco, eULich, eUArea,
-            eTErit, eTEdem, eTEsco, eTLich, eTArea,
-            eLErit, eLEdem, eLEsco, eLLich, eLArea
+        val campiClinici = listOf(
+            eHErit, eHEdem, eHEsco, eHLich,
+            eUErit, eUEdem, eUEsco, eULich,
+            eTErit, eTEdem, eTEsco, eTLich,
+            eLErit, eLEdem, eLEsco, eLLich
         )
+
+        val campiArea = listOf(
+            eHArea, eUArea, eTArea, eLArea
+        )
+
+        val tuttiICampi = campiClinici + campiArea
 
         val btnCalcolaSalva = findViewById<Button>      (R.id.btnCalcolaSalvaEasi)
         val btnModifica     = findViewById<Button>      (R.id.btnModificaEasi)
@@ -84,80 +90,100 @@ class EasiActivity : AppCompatActivity()
         btnCalcolaSalva.setOnClickListener {
             if (!calcoloEffettuato)
             {
-                if (tuttiICampi.any { it.text.toString().isEmpty() })
+                var hasError = false
+
+                for (campo in campiClinici)
                 {
-                    Toast.makeText(this, getString(R.string.err_campi), Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
+                    val testo = campo.text.toString().trim()
+                    if (testo.isEmpty())
+                    {
+                        campo.error = getString(R.string.err_campi)
+                        hasError = true
+                    }
+                    else
+                    {
+                        val valore = testo.toIntOrNull()
+                        if (valore == null || valore !in 0..3)
+                        {
+                            campo.error = getString(R.string.err_parametriEASI)
+                            hasError = true
+                        }
+                    }
                 }
 
-                try
+                for (campo in campiArea)
                 {
-                    // Testa (H)
-                    val hE      = eHErit.text.toString().toInt()
-                    val hI      = eHEdem.text.toString().toInt()
-                    val hEx     = eHEsco.text.toString().toInt()
-                    val hL      = eHLich.text.toString().toInt()
-                    val hArea   = eHArea.text.toString().toDouble()
-
-                    // Arti Sup (U)
-                    val uE      = eUErit.text.toString().toInt()
-                    val uI      = eUEdem.text.toString().toInt()
-                    val uEx     = eUEsco.text.toString().toInt()
-                    val uL      = eULich.text.toString().toInt()
-                    val uArea   = eUArea.text.toString().toDouble()
-
-                    // Tronco (T)
-                    val tE      = eTErit.text.toString().toInt()
-                    val tI      = eTEdem.text.toString().toInt()
-                    val tEx     = eTEsco.text.toString().toInt()
-                    val tL      = eTLich.text.toString().toInt()
-                    val tArea   = eTArea.text.toString().toDouble()
-
-                    // Arti Inf (L)
-                    val lE      = eLErit.text.toString().toInt()
-                    val lI      = eLEdem.text.toString().toInt()
-                    val lEx     = eLEsco.text.toString().toInt()
-                    val lL      = eLLich.text.toString().toInt()
-                    val lArea   = eLArea.text.toString().toDouble()
-
-                    parametriClinici    = listOf(hE, hI, hEx, hL, uE, uI, uEx, uL, tE, tI, tEx, tL, lE, lI, lEx, lL)
-                    parametriArea       = listOf(hArea, uArea, tArea, lArea)
-
-                    if (parametriClinici.any { it !in 0..3 })
+                    val testo = campo.text.toString().trim()
+                    if (testo.isEmpty())
                     {
-                        Toast.makeText(this, getString(R.string.err_parametriEASI), Toast.LENGTH_LONG).show()
-                        return@setOnClickListener
+                        campo.error = getString(R.string.err_campi)
+                        hasError = true
                     }
-
-                    if (parametriArea.any { it !in 0.0..100.0 })
+                    else
                     {
-                        Toast.makeText(this, getString(R.string.err_area), Toast.LENGTH_LONG).show()
-                        return@setOnClickListener
+                        val valore = testo.toDoubleOrNull()
+                        if (valore == null || valore !in 0.0..100.0)
+                        {
+                            campo.error = getString(R.string.err_area)
+                            hasError = true
+                        }
                     }
-
-                    val hScore = 0.1 * (hE + hI + hEx + hL) * calcolaPunteggioArea(hArea)
-                    val uScore = 0.2 * (uE + uI + uEx + uL) * calcolaPunteggioArea(uArea)
-                    val tScore = 0.3 * (tE + tI + tEx + tL) * calcolaPunteggioArea(tArea)
-                    val lScore = 0.4 * (lE + lI + lEx + lL) * calcolaPunteggioArea(lArea)
-
-                    easiTotale  = hScore + uScore + tScore + lScore
-
-                    statoClinico =  if      (easiTotale < 7.0)      getString(R.string.stato_Lieve)
-                                    else if (easiTotale <= 21.0)    getString(R.string.stato_Moderata)
-                                    else                            getString(R.string.stato_Severa)
-
-                    txtRisultato    .text       = getString(R.string.text_RisultatoEASI, easiTotale)
-                    txtSeverita     .text       = getString(R.string.text_GravitàBSA, statoClinico)
-                    layoutRisultato .visibility = View.VISIBLE
-                    btnCalcolaSalva .text       = getString(R.string.btn_Salva)
-                    btnModifica     .visibility = View.VISIBLE
-
-                    tuttiICampi.forEach { it.isEnabled = false }
-                    calcoloEffettuato = true
-
-                } catch (e: Exception) {
-                    Toast.makeText(this, getString(R.string.err_dati), Toast.LENGTH_SHORT).show()
                 }
+
+                if (hasError)
+                  return@setOnClickListener
+
+                // Testa (H)
+                val hE      = eHErit.text.toString().toInt()
+                val hI      = eHEdem.text.toString().toInt()
+                val hEx     = eHEsco.text.toString().toInt()
+                val hL      = eHLich.text.toString().toInt()
+                val hArea   = eHArea.text.toString().toDouble()
+
+                // Arti Sup (U)
+                val uE      = eUErit.text.toString().toInt()
+                val uI      = eUEdem.text.toString().toInt()
+                val uEx     = eUEsco.text.toString().toInt()
+                val uL      = eULich.text.toString().toInt()
+                val uArea   = eUArea.text.toString().toDouble()
+
+                // Tronco (T)
+                val tE      = eTErit.text.toString().toInt()
+                val tI      = eTEdem.text.toString().toInt()
+                val tEx     = eTEsco.text.toString().toInt()
+                val tL      = eTLich.text.toString().toInt()
+                val tArea   = eTArea.text.toString().toDouble()
+
+                // Arti Inf (L)
+                val lE      = eLErit.text.toString().toInt()
+                val lI      = eLEdem.text.toString().toInt()
+                val lEx     = eLEsco.text.toString().toInt()
+                val lL      = eLLich.text.toString().toInt()
+                val lArea   = eLArea.text.toString().toDouble()
+
+                parametriClinici    = listOf(hE, hI, hEx, hL, uE, uI, uEx, uL, tE, tI, tEx, tL, lE, lI, lEx, lL)
+                parametriArea       = listOf(hArea, uArea, tArea, lArea)
+
+                val hScore = 0.1 * (hE + hI + hEx + hL) * calcolaPunteggioArea(hArea)
+                val uScore = 0.2 * (uE + uI + uEx + uL) * calcolaPunteggioArea(uArea)
+                val tScore = 0.3 * (tE + tI + tEx + tL) * calcolaPunteggioArea(tArea)
+                val lScore = 0.4 * (lE + lI + lEx + lL) * calcolaPunteggioArea(lArea)
+
+                easiTotale  = hScore + uScore + tScore + lScore
+
+                statoClinico =  if      (easiTotale < 7.0)      0
+                                else if (easiTotale <= 21.0)    1
+                                else                            2
+
+                txtRisultato    .text       = getString(R.string.text_RisultatoEASI,    easiTotale)
+                txtSeverita     .text       = getString(R.string.text_GravitàBSA,       traduciStato(statoClinico))
+                layoutRisultato .visibility = View.VISIBLE
+                btnCalcolaSalva .text       = getString(R.string.btn_Salva)
+                btnModifica     .visibility = View.VISIBLE
+
+                tuttiICampi.forEach { it.isEnabled = false }
+                calcoloEffettuato = true
+
             }
             else
             {
@@ -165,19 +191,7 @@ class EasiActivity : AppCompatActivity()
                 val idDottore           = sharedPref.getInt("idDottore", -1)
                 val idCartellaClinica   = db.getCartellaClinica(idPaziente)
 
-                val noteDiagnosi = getString(
-                    R.string.nota_diagnosi_EASI,
-
-                    parametriClinici[0],    parametriClinici[1],    parametriClinici[2],    parametriClinici[3],
-                    parametriClinici[4],    parametriClinici[5],    parametriClinici[6],    parametriClinici[7],
-                    parametriClinici[8],    parametriClinici[9],    parametriClinici[10],   parametriClinici[11],
-                    parametriClinici[12],   parametriClinici[13],   parametriClinici[14],   parametriClinici[15],
-
-                    parametriArea[0],
-                    parametriArea[1],
-                    parametriArea[2],
-                    parametriArea[3]
-                )
+                val noteDiagnosi        = (parametriClinici.map { it.toString() } + parametriArea.map { it.toString() }).joinToString("|")
 
                 if (idPaziente != -1 && idDottore != -1)
                 {
@@ -221,5 +235,12 @@ class EasiActivity : AppCompatActivity()
         else if (percentuale < 70.0)    return 4
         else if (percentuale < 90.0)    return 5
         else                            return 6
+    }
+
+    private fun traduciStato(stato: Int): String
+    {
+        if        (stato==0)  return getString(R.string.stato_Lieve)
+        else if   (stato==1)  return getString(R.string.stato_Moderata)
+        else                  return getString(R.string.stato_Severa)
     }
 }

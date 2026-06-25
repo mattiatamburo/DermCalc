@@ -20,7 +20,7 @@ class BsaActivity : AppCompatActivity()
 {
     private var calcoloEffettuato   = false
     private var bsaTotale           = 0.0
-    private var statoClinico        = ""
+    private var statoClinico        = 0
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -54,52 +54,49 @@ class BsaActivity : AppCompatActivity()
         btnCalcolaSalva.setOnClickListener {
             if (!calcoloEffettuato)
             {
-                if (tuttiICampi.any { it.text.toString().isEmpty() })
+                var hasError = false
+
+                for (campo in tuttiICampi)
                 {
-                    Toast.makeText(this, getString(R.string.err_distretti), Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                try
-                {
-                    val areaTesta       = editTesta     .text.toString().toDouble()
-                    val areaArtiSup     = editArtiSup   .text.toString().toDouble()
-                    val areaTronco      = editTronco    .text.toString().toDouble()
-                    val areaArtiInf     = editArtiInf   .text.toString().toDouble()
-
-                    val parametriArea   = listOf(areaTesta, areaArtiSup, areaTronco, areaArtiInf)
-
-                    var haErrore = false
-                    for (area in parametriArea)
-                      if (area < 0.0 || area > 100.0)
-                        haErrore = true
-
-                    if (haErrore)
+                    val testo = campo.text.toString().trim()
+                    if (testo.isEmpty())
                     {
-                        Toast.makeText(this, getString(R.string.err_perc), Toast.LENGTH_LONG).show()
-                        return@setOnClickListener
+                        campo.error = getString(R.string.err_campi)
+                        hasError = true
                     }
-
-                    bsaTotale = (areaTesta * 0.1) + (areaArtiSup * 0.2) + (areaTronco * 0.3) + (areaArtiInf * 0.4)
-
-                    statoClinico =  if      (bsaTotale < 5.0)   getString(R.string.stato_Lieve)
-                                    else if (bsaTotale <= 10.0) getString(R.string.stato_Moderata)
-                                    else                        getString(R.string.stato_Severa)
-
-                    txtRisultato    .text       = getString(R.string.text_RisultatoBSA  , bsaTotale)
-                    txtSeverita     .text       = getString(R.string.text_GravitàBSA    ,statoClinico)
-                    layoutRisultato .visibility = View.VISIBLE
-                    btnCalcolaSalva .text       = getString(R.string.btn_Salva)
-                    btnModifica     .visibility = View.VISIBLE
-
-                    tuttiICampi     .forEach { it.isEnabled = false }
-                    calcoloEffettuato = true
-
+                    else
+                    {
+                        val valore = testo.toDoubleOrNull()
+                        if (valore == null || valore !in 0.0..100.0)
+                        {
+                            campo.error = getString(R.string.err_area)
+                            hasError = true
+                        }
+                    }
                 }
-                catch (e: Exception)
-                {
-                    Toast.makeText(this, getString(R.string.err_dati), Toast.LENGTH_SHORT).show()
-                }
+
+                if (hasError)
+                  return@setOnClickListener
+
+                val areaTesta       = editTesta     .text.toString().toDouble()
+                val areaArtiSup     = editArtiSup   .text.toString().toDouble()
+                val areaTronco      = editTronco    .text.toString().toDouble()
+                val areaArtiInf     = editArtiInf   .text.toString().toDouble()
+
+                bsaTotale = (areaTesta * 0.1) + (areaArtiSup * 0.2) + (areaTronco * 0.3) + (areaArtiInf * 0.4)
+
+                statoClinico =  if      (bsaTotale < 5.0)   0
+                                else if (bsaTotale <= 10.0) 1
+                                else                        2
+
+                txtRisultato    .text       = getString(R.string.text_RisultatoBSA  ,bsaTotale)
+                txtSeverita     .text       = getString(R.string.text_GravitàBSA    ,traduciStato(statoClinico))
+                layoutRisultato .visibility = View.VISIBLE
+                btnCalcolaSalva .text       = getString(R.string.btn_Salva)
+                btnModifica     .visibility = View.VISIBLE
+
+                tuttiICampi     .forEach { it.isEnabled = false }
+                calcoloEffettuato = true
             }
             else
             {
@@ -107,13 +104,7 @@ class BsaActivity : AppCompatActivity()
                 val idDottore           = sharedPref.getInt("idDottore", -1)
                 val idCartellaClinica   = db.getCartellaClinica(idPaziente)
 
-                val noteDiagnosi = getString(
-                                                R.string    .note_BSA,
-                                                editTesta   .text.toString().toDouble(),
-                                                editArtiSup .text.toString().toDouble(),
-                                                editTronco  .text.toString().toDouble(),
-                                                editArtiInf .text.toString().toDouble()
-                                            )
+                val noteDiagnosi        = "${editTesta.text}|${editArtiSup.text}|${editTronco.text}|${editArtiInf.text}"
 
                 if (idPaziente != -1 && idDottore != -1)
                 {
@@ -132,7 +123,6 @@ class BsaActivity : AppCompatActivity()
                 }
                 else
                     Toast.makeText(this, getString(R.string.err_paz), Toast.LENGTH_SHORT).show()
-
             }
         }
 
@@ -147,5 +137,12 @@ class BsaActivity : AppCompatActivity()
         btnAnnulla.setOnClickListener{
             finish()
         }
+    }
+
+    private fun traduciStato(stato: Int): String
+    {
+        if        (stato==0)  return getString(R.string.stato_Lieve)
+        else if   (stato==1)  return getString(R.string.stato_Moderata)
+        else                  return getString(R.string.stato_Severa)
     }
 }

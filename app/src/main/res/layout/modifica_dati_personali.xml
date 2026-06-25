@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/android:windowBackground">
 
-    <include
-        android:id="@+id/included_toolbar"
-        layout="@layout/upper_bar"
+    <LinearLayout
+        android:id="@+id/bottom_button_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnConferma"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/btn_Conferma"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_Indietro"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="@string/btn_Indietro" />
+
+        <Button
+            android:id="@+id/btnConferma"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="@string/btn_Conferma" />
+    </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/btnConferma"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_button_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/included_toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Dati di Contatto"
+                android:text="@string/text_datiContatto"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -72,11 +80,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:hint="@string/text_Cellulare"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textColorHint="?attr/colorOnSurfaceVariant"
                         android:inputType="phone"
                         android:paddingStart="8dp"
-                        android:paddingEnd="8dp" />
+                        android:paddingEnd="8dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant" />
 
                     <EditText
                         android:id="@+id/txtEmail"
@@ -84,19 +92,20 @@
                         android:layout_height="56dp"
                         android:layout_marginTop="16dp"
                         android:hint="@string/text_Email"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textColorHint="?attr/colorOnSurfaceVariant"
                         android:inputType="textEmailAddress"
                         android:paddingStart="8dp"
-                        android:paddingEnd="8dp" />
+                        android:paddingEnd="8dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant" />
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Sicurezza (Lascia vuoto per non cambiare)"
+                android:text="@string/text_sicurezza"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -120,12 +129,12 @@
                         android:id="@+id/txtOldPassword"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:hint="Vecchia Password"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textColorHint="?attr/colorOnSurfaceVariant"
+                        android:hint="@string/hint_vecchiaPass"
                         android:inputType="textPassword"
                         android:paddingStart="8dp"
-                        android:paddingEnd="8dp" />
+                        android:paddingEnd="8dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant" />
 
                     <View
                         android:layout_width="match_parent"
@@ -138,24 +147,24 @@
                         android:id="@+id/txtNewPassword"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:hint="Nuova Password"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textColorHint="?attr/colorOnSurfaceVariant"
+                        android:hint="@string/hint_nuovaPass"
                         android:inputType="textPassword"
                         android:paddingStart="8dp"
-                        android:paddingEnd="8dp" />
+                        android:paddingEnd="8dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant" />
 
                     <EditText
                         android:id="@+id/txtConfirmPassword"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:layout_marginTop="16dp"
-                        android:hint="Conferma Nuova Password"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textColorHint="?attr/colorOnSurfaceVariant"
+                        android:hint="@string/hint_confermaPass"
                         android:inputType="textPassword"
                         android:paddingStart="8dp"
-                        android:paddingEnd="8dp" />
+                        android:paddingEnd="8dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

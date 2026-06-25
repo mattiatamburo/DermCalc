@@ -59,20 +59,19 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val toolbar = findViewById<Toolbar>(R.id.upperToolBar)
         val btnHome = findViewById<ImageButton>(R.id.btnHome)
         val txtNome = findViewById<TextView>(R.id.txtName)
         val btnProfilo = findViewById<ImageButton>(R.id.btnProfilo)
         val idDottore = sharedPref.getInt("idDottore", -1)
         val dottore = db.getDottoreById(idDottore)
 
-        txtNome.text = dottore?.nome + " " + dottore?.cognome;
+        btnHome.isClickable  = false
+        btnHome.isFocusable  = false
+        btnHome.background   = null
 
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
+        txtNome.text = "${dottore?.nome?.lowercase()?.replaceFirstChar { it.uppercase() }} ${dottore?.cognome?.lowercase()?.replaceFirstChar { it.uppercase() }}"
+
         val listaTest = db.getPazienti()
-//        for (paziente in listaTest) {
-//            println(paziente.idPaziente.toString() + " " + paziente.cognome + " " + paziente.nome);
-//        }
 
         val recyclerView = findViewById<RecyclerView>(R.id.listaPazienti)
         recyclerView.layoutManager = LinearLayoutManager(this)

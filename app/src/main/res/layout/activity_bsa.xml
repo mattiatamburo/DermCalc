@@ -3,8 +3,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="?attr/android:windowBackground">
+    android:background="?attr/android:windowBackground"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,150 +15,151 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="@string/title_BSA"
-            android:textSize="26sp"
-            android:textStyle="bold"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:text="@string/desc_BSA"
-            android:textSize="14sp"
             android:textColor="?attr/colorOnSurfaceVariant"
-            android:layout_marginBottom="32dp"/>
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bsa_Testa"
-            android:textStyle="bold"
-            android:textColor="?attr/colorPrimary"/>
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editBsaTesta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:hint="@string/hint_BSA"
-            android:textColor="?attr/colorOnSurface"
-            android:textColorHint="?attr/colorOnSurfaceVariant"
             android:inputType="numberDecimal"
-            android:layout_marginBottom="24dp"/>
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bsa_ArtiSup"
-            android:textStyle="bold"
-            android:textColor="?attr/colorPrimary"/>
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editBsaArtiSup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:hint="@string/hint_BSA"
-            android:textColor="?attr/colorOnSurface"
-            android:textColorHint="?attr/colorOnSurfaceVariant"
             android:inputType="numberDecimal"
-            android:layout_marginBottom="24dp"/>
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bsa_Tronco"
-            android:textStyle="bold"
-            android:textColor="?attr/colorPrimary"/>
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editBsaTronco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:hint="@string/hint_BSA"
-            android:textColor="?attr/colorOnSurface"
-            android:textColorHint="?attr/colorOnSurfaceVariant"
             android:inputType="numberDecimal"
-            android:layout_marginBottom="24dp"/>
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bsa_ArtiInf"
-            android:textStyle="bold"
-            android:textColor="?attr/colorPrimary"/>
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/editBsaArtiInf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:hint="@string/hint_BSA"
-            android:textColor="?attr/colorOnSurface"
-            android:textColorHint="?attr/colorOnSurfaceVariant"
             android:inputType="numberDecimal"
-            android:layout_marginBottom="32dp"/>
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOnSurfaceVariant" />
 
         <LinearLayout
             android:id="@+id/layoutRisultatoBsa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
+            android:layout_marginBottom="24dp"
             android:background="?attr/colorSurfaceVariant"
+            android:orientation="vertical"
             android:padding="16dp"
-            android:layout_marginBottom="24dp">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/textRisultatoBsa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorPrimary"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textSeveritaBsa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:layout_marginTop="4dp"
                 android:textColor="?attr/colorOnSurfaceVariant"
-                android:layout_marginTop="4dp"/>
+                android:textSize="18sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_Annulla"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:text="@string/btn_Annulla"
-                style="?attr/materialButtonOutlinedStyle"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnCalcolaSalva"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"
                 android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:text="@string/btn_Calcola"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
         <Button
             android:id="@+id/btnModifica"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_Modifica"
-            style="?android:attr/borderlessButtonStyle"
-            android:textColor="?attr/colorOnSurfaceVariant"
             android:layout_marginTop="8dp"
-            android:visibility="gone"/>
+            android:text="@string/btn_Modifica"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:visibility="gone" />
 
     </LinearLayout>
 </ScrollView>

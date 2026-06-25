@@ -51,10 +51,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:hint="@string/text_eritemaEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
 
             <EditText
                 android:id="@+id/editTestaEdemaEasi"
@@ -62,10 +62,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/text_edemaEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,10 +80,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:hint="@string/text_escoriazioneEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
 
             <EditText
                 android:id="@+id/editTestaLichenEasi"
@@ -91,10 +91,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/text_lichenifEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
 
         <EditText
@@ -103,9 +103,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:hint="@string/text_area"
+            android:inputType="number"
             android:textColor="?attr/colorOnSurface"
-            android:textColorHint="?attr/colorOnSurfaceVariant"
-            android:inputType="number" />
+            android:textColorHint="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -128,10 +128,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:hint="@string/text_eritemaEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
 
             <EditText
                 android:id="@+id/editArtiSupEdemaEasi"
@@ -139,10 +139,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/text_edemaEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
 
         <LinearLayout
@@ -157,10 +157,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:hint="@string/text_escoriazioneEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
 
             <EditText
                 android:id="@+id/editArtiSupLichenEasi"
@@ -168,10 +168,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/text_lichenifEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
 
         <EditText
@@ -180,9 +180,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:hint="@string/text_area"
+            android:inputType="number"
             android:textColor="?attr/colorOnSurface"
-            android:textColorHint="?attr/colorOnSurfaceVariant"
-            android:inputType="number" />
+            android:textColorHint="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -205,10 +205,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:hint="@string/text_eritemaEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
 
             <EditText
                 android:id="@+id/editTroncoEdemaEasi"
@@ -216,10 +216,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/text_edemaEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
 
         <LinearLayout
@@ -234,10 +234,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:hint="@string/text_escoriazioneEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
 
             <EditText
                 android:id="@+id/editTroncoLichenEasi"
@@ -245,10 +245,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/text_lichenifEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
 
         <EditText
@@ -257,9 +257,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:hint="@string/text_area"
+            android:inputType="number"
             android:textColor="?attr/colorOnSurface"
-            android:textColorHint="?attr/colorOnSurfaceVariant"
-            android:inputType="number" />
+            android:textColorHint="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -282,10 +282,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:hint="@string/text_eritemaEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
 
             <EditText
                 android:id="@+id/editArtiInfEdemaEasi"
@@ -293,10 +293,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/text_edemaEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
 
         <LinearLayout
@@ -311,10 +311,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:hint="@string/text_escoriazioneEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
 
             <EditText
                 android:id="@+id/editArtiInfLichenEasi"
@@ -322,10 +322,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/text_lichenifEASI"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
                 android:inputType="number"
-                android:maxLength="1" />
+                android:maxLength="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurfaceVariant" />
         </LinearLayout>
 
         <EditText
@@ -334,9 +334,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:hint="@string/text_area"
+            android:inputType="number"
             android:textColor="?attr/colorOnSurface"
-            android:textColorHint="?attr/colorOnSurfaceVariant"
-            android:inputType="number" />
+            android:textColorHint="?attr/colorOnSurfaceVariant" />
 
         <LinearLayout
             android:id="@+id/layoutRisultatoEasi"
@@ -368,16 +368,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_Annulla"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                style="?attr/materialButtonOutlinedStyle"
+                android:layout_weight="1"
                 android:text="@string/btn_Annulla"
                 android:textSize="16sp" />
 
@@ -385,8 +385,8 @@
                 android:id="@+id/btnCalcolaSalvaEasi"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_weight="1"
                 android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:text="@string/btn_Calcola"
                 android:textSize="16sp" />
         </LinearLayout>
