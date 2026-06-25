@@ -65,4 +65,10 @@ interface DB_Interface {
 
     @Query("SELECT idCartellaClinica FROM CartellaClinica WHERE idPaziente = :idPaziente")
     fun getCartellaClinica(idPaziente: Int): Int
+
+    @Query("UPDATE Accessi SET password = :newPassword WHERE idAccesso = :idAccesso")
+    fun updatePassword(idAccesso: Int, newPassword: String): Int
+
+    @Query("SELECT * FROM Accessi WHERE idDottore = :idDottore")
+    fun getAccessoByDottoreId(idDottore: Int): Accessi
 }

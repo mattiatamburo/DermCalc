@@ -58,4 +58,8 @@ class DB_Manager(context: Context) {
     fun getDiagnosiByPaziente(idPaziente: Int): List<Diagnosi> {return dbInterface.getDiagnosiByPaziente(idPaziente)}
 
     fun getCartellaClinica(idPaziente: Int): Int {return dbInterface.getCartellaClinica(idPaziente)}
+
+    fun updatePassword(idAccesso: Int, newPassword: String): Int {return dbInterface.updatePassword(idAccesso, newPassword)}
+
+    fun getAccessoByDottoreId(idDottore: Int): Accessi {return dbInterface.getAccessoByDottoreId(idDottore)}
 }

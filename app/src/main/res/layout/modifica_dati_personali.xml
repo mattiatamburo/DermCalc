@@ -1,78 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#FAFAFA">
 
     <include
-        layout="@layout/upper_bar"
         android:id="@+id/included_toolbar"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/txtNomeCognome"
-        android:layout_width="wrap_content"
+        layout="@layout/upper_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/text_NomeCognome"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/txtCellulare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="phone"
-        android:hint="@string/text_Cellulare"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNomeCognome" />
-
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="@string/text_Email"
-        app:layout_constraintEnd_toEndOf="@+id/txtCellulare"
-        app:layout_constraintStart_toStartOf="@+id/txtCellulare"
-        app:layout_constraintTop_toBottomOf="@+id/txtCellulare" />
-
-    <EditText
-        android:id="@+id/txtDataNascita"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="none"
-        android:focusable="false"
-        android:clickable="true"
-        android:hint="@string/text_DataNascita"
-        app:layout_constraintEnd_toEndOf="@+id/txtEmail"
-        app:layout_constraintStart_toStartOf="@+id/txtEmail"
-        app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
     <Button
         android:id="@+id/btnConferma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/btn_Conferma"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/btnConferma"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDataNascita"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/included_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Dati di Contatto"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <EditText
+                        android:id="@+id/txtCellulare"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:hint="@string/text_Cellulare"
+                        android:inputType="phone"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp" />
+
+                    <EditText
+                        android:id="@+id/txtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/text_Email"
+                        android:inputType="textEmailAddress"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Sicurezza (Lascia vuoto per non cambiare)"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <EditText
+                        android:id="@+id/txtOldPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:hint="Vecchia Password"
+                        android:inputType="textPassword"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="#EEEEEE" />
+
+                    <EditText
+                        android:id="@+id/txtNewPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:hint="Nuova Password"
+                        android:inputType="textPassword"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp" />
+
+                    <EditText
+                        android:id="@+id/txtConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="16dp"
+                        android:hint="Conferma Nuova Password"
+                        android:inputType="textPassword"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,13 +46,13 @@ class ProfiloActivity : AppCompatActivity()
         if (dottore != null)
         {
             txtUpperName        .text = "${dottore.nome.lowercase().replaceFirstChar { it.uppercase() }} ${dottore.cognome.lowercase().replaceFirstChar { it.uppercase() }}"
-            textViewCellulare   .text = HtmlCompat.fromHtml("<b>cellulare:</b> ${dottore.cellulare}", HtmlCompat.FROM_HTML_MODE_LEGACY)
-            textViewCodFiscale  .text = HtmlCompat.fromHtml("<b>codice fiscale:</b> ${dottore.codFiscale}", HtmlCompat.FROM_HTML_MODE_LEGACY)
-            textViewEmail       .text = HtmlCompat.fromHtml("<b>email:</b> ${dottore.email}", HtmlCompat.FROM_HTML_MODE_LEGACY)
+            textViewCellulare   .text = dottore.cellulare
+            textViewCodFiscale  .text = dottore.codFiscale
+            textViewEmail       .text = dottore.email
 
             // Formattazione della data
             val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
-            textViewDataNascita.text = HtmlCompat.fromHtml("<b>data di nascita:</b> ${formatter.format(dottore.dataNascita)}", HtmlCompat.FROM_HTML_MODE_LEGACY)
+            textViewDataNascita.text = formatter.format(dottore.dataNascita)
         }
 
         btnHome.setOnClickListener {

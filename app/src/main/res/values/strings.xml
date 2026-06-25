@@ -13,9 +13,20 @@
     <string name="ricerca_Pazienti">                Cerca Pazienti…                                                                                     </string>
 
     //Pagina Modifica Dati Personali
+    <string name="btn_ModificaDati">                Modifica Dati Personali                                                                             </string>
     <string name="btn_Conferma">                    Conferma Modifiche                                                                                  </string>
     <string name="datiAggiornati">                  Dati aggiornati                                                                                     </string>
     <string name="err_modifica">                    Modifica non riuscita                                                                               </string>
+    <string name="err_cellulare">                   Inserisci un numero di telefono valido                                                              </string>
+    <string name="err_email">                       Inserisci un indirizzo email valido (es: nome@email.it)                                             </string>
+    <string name="err_oldPassword">                 La vecchia password è errata                                                                        </string>
+    <string name="err_confirmPassword">             Le password non coincidono                                                                          </string>
+    <string name="err_aggPassword">                 Errore durante l\'aggiornamento della password                                                      </string>
+    <string name="err_passChar">                    Deve contenere almeno 8 caratteri.                                                                  </string>
+    <string name="err_passUpper">                   Manca una lettera maiuscola.                                                                        </string>
+    <string name="err_passLower">                   Manca una lettera minuscola.                                                                        </string>
+    <string name="err_passDigit">                   Manca un numero.                                                                                    </string>
+    <string name="err_passSpecial">                 Manca un carattere speciale.                                                                        </string>
 
     //Pagina Paziente
     <string name="ricerca_Diagnosi">                Cerca Diagnosi…                                                                                     </string>

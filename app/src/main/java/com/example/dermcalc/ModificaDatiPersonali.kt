@@ -1,9 +1,8 @@
 package com.example.dermcalc
 
 import DataBase.DB_Manager
-import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -12,10 +11,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 class ModificaDatiPersonali : AppCompatActivity()
 {
@@ -31,87 +26,119 @@ class ModificaDatiPersonali : AppCompatActivity()
             insets
         }
 
-        val db              = DB_Manager(this)
-        val sharedPref      = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
-        val id              = sharedPref.getInt("idDottore", -1)
-        val dottore         = db.getDottoreById(id)
-        val txtUpperName    = findViewById<TextView>(R.id.txtName)
-        val btnConferma     = findViewById<Button>  (R.id.btnConferma)
-        val txtNomeCognome  = findViewById<EditText>(R.id.txtNomeCognome)
-        val txtCellulare    = findViewById<EditText>(R.id.txtCellulare)
-        val txtEmail        = findViewById<EditText>(R.id.txtEmail)
-        val txtDataNascita  = findViewById<EditText>(R.id.txtDataNascita)
+        val db                  = DB_Manager(this)
+        val sharedPref          = getSharedPreferences("DermCalcPrefs", MODE_PRIVATE)
+        val id                  = sharedPref.getInt("idDottore", -1)
+        val dottore             = db.getDottoreById(id)
+        val accesso             = db.getAccessoByDottoreId(id)
 
-        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
+        val txtUpperName        = findViewById<TextView>    (R.id.txtName)
+        val txtCellulare        = findViewById<EditText>    (R.id.txtCellulare)
+        val txtEmail            = findViewById<EditText>    (R.id.txtEmail)
 
-        if (dottore != null) {
+        val txtOldPassword      = findViewById<EditText>    (R.id.txtOldPassword)
+        val txtNewPassword      = findViewById<EditText>    (R.id.txtNewPassword)
+        val txtConfirmPassword  = findViewById<EditText>    (R.id.txtConfirmPassword)
+
+        val btnConferma         = findViewById<Button>      (R.id.btnConferma)
+
+
+        if (dottore != null)
+        {
             txtUpperName.text = "${
                 dottore.nome.lowercase().replaceFirstChar { it.uppercase() }
             } ${dottore.cognome.lowercase().replaceFirstChar { it.uppercase() }}"
 
-            txtNomeCognome  .setText("${dottore.nome} ${dottore.cognome}")
             txtCellulare    .setText(dottore.cellulare)
             txtEmail        .setText(dottore.email)
-            txtDataNascita  .setText(formatter.format(dottore.dataNascita))
-
-            // Configurazione DatePickerDialog
-            txtDataNascita.setOnClickListener {
-                val calendar = Calendar.getInstance()
-                try {
-                    val currentData = formatter.parse(txtDataNascita.text.toString())
-                    if (currentData != null) calendar.time = currentData
-                } catch (e: Exception) {
-                }
-
-                val year    = calendar.get(Calendar.YEAR)
-                val month   = calendar.get(Calendar.MONTH)
-                val day     = calendar.get(Calendar.DAY_OF_MONTH)
-
-                val datePickerDialog =
-                    DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-                        val selectedDate = Calendar.getInstance()
-                        selectedDate    .set    (selectedYear, selectedMonth, selectedDay)
-                        txtDataNascita  .setText(formatter.format(selectedDate.time))
-                    }, year, month, day)
-
-                datePickerDialog.show()
-            }
         }
 
         btnConferma.setOnClickListener {
-            if (dottore != null && txtNomeCognome.text != null && txtCellulare.text != null && txtEmail.text != null && txtDataNascita.text != null)
+            if (dottore != null)
             {
-                val strNomeCognome  = txtNomeCognome.text.toString()
-                val strNome         = strNomeCognome.substringBefore    (" ").trim()
-                val strCognome      = strNomeCognome.substringAfterLast (" ").trim()
-                val cellulare       = txtCellulare  .text.toString()
-                val email           = txtEmail      .text.toString()
-                val strDataNascita  = txtDataNascita.text.toString()
-                
-                val dateNascita: Date = try {
-                    formatter.parse(strDataNascita) ?: dottore.dataNascita
-                } catch (e: Exception) {
-                    dottore.dataNascita
+                val cellulare       = txtCellulare      .text.toString()
+                val email           = txtEmail          .text.toString()
+
+                val oldPass         = txtOldPassword    .text.toString()
+                val newPass         = txtNewPassword    .text.toString()
+                val confPass        = txtConfirmPassword.text.toString()
+
+                if (cellulare.isEmpty() || !Patterns.PHONE.matcher(cellulare).matches() || cellulare.length < 8)
+                {
+                    txtCellulare.error = getString(R.string.err_cellulare)
+                    txtCellulare.requestFocus()
+                    return@setOnClickListener
                 }
-                if (db.modifyDottore(
-                        strNome,
-                        strCognome,
+
+                if (email.isEmpty()     || !Patterns.EMAIL_ADDRESS.matcher(email).matches())
+                {
+                    txtEmail.error = getString(R.string.err_email)
+                    txtEmail.requestFocus()
+                    return@setOnClickListener
+                }
+
+                var passwordModificata = false
+
+                if (oldPass.isNotEmpty() || newPass.isNotEmpty() || confPass.isNotEmpty())
+                {
+                    if (oldPass != accesso.password)
+                    {
+                        txtOldPassword.error = getString(R.string.err_oldPassword)
+                        txtOldPassword.requestFocus()
+                        return@setOnClickListener
+                    }
+
+                    val erroreSicurezza = controllaSicurezzaPassword(newPass)
+                    if (erroreSicurezza != null)
+                    {
+                        txtNewPassword.error = erroreSicurezza
+                        txtNewPassword.requestFocus()
+                        return@setOnClickListener
+                    }
+
+                    if (newPass != confPass)
+                    {
+                        txtConfirmPassword.error = getString(R.string.err_confirmPassword)
+                        txtConfirmPassword.requestFocus()
+                        return@setOnClickListener
+                    }
+
+                    if (db.updatePassword(accesso.idAccesso, newPass) <= 0)
+                    {
+                        Toast.makeText(this, getString(R.string.err_aggPassword), Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+                    passwordModificata = true
+                }
+
+                val contattiAggiornati = db.modifyDottore(
+                        dottore.nome,
+                        dottore.cognome,
                         cellulare,
                         dottore.codFiscale,
                         email,
-                        dateNascita,
+                        dottore.dataNascita,
                         id
                     )
-                ) {
+
+                if (contattiAggiornati || passwordModificata)
+                {
                     Toast.makeText(this, getString(R.string.datiAggiornati), Toast.LENGTH_SHORT).show()
                     finish()
-                    //TODO: FARE UN REFRESH DELLA PAGINA PROFILO
-                    val intent = Intent(this, ProfiloActivity::class.java)
-                    startActivity(intent)
                 } else {
                     Toast.makeText(this, getString(R.string.err_modifica), Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    private fun controllaSicurezzaPassword(password: String): String?
+    {
+        if (password.length < 8)                    return getString(R.string.err_passChar)
+        if (!password.any { it.isUpperCase() })     return getString(R.string.err_passUpper)
+        if (!password.any { it.isLowerCase() })     return getString(R.string.err_passLower)
+        if (!password.any { it.isDigit() })         return getString(R.string.err_passDigit)
+        if (password.all  { it.isLetterOrDigit() }) return getString(R.string.err_passSpecial)
+                                                    return null
     }
 }
