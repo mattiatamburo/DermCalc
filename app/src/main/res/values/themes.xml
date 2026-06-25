@@ -5,6 +5,10 @@
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowContentTransitions">true</item>
+
+        <!-- Font simile a Comic Sans (disponibile di sistema su Android) -->
+        <item name="android:fontFamily">sans-serif-casual</item>
+        <item name="fontFamily">sans-serif-casual</item>
     </style>
 
     <style name="Theme.DermCalc" parent="Base.Theme.DermCalc" />
