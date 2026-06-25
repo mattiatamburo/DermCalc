@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA">
+    android:background="?attr/android:windowBackground">
 
     <include
         android:id="@+id/included_toolbar"
@@ -59,6 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="@string/text_NomeCognome"
+                    android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_mezzo"
                     app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/text_CodFiscale"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintEnd_toEndOf="@+id/txtNomeCognome"
                     app:layout_constraintStart_toStartOf="@+id/txtNomeCognome"
                     app:layout_constraintTop_toBottomOf="@+id/txtNomeCognome" />
@@ -80,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/text_DataNascita"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintEnd_toEndOf="@+id/txtNomeCognome"
                     app:layout_constraintStart_toStartOf="@+id/txtNomeCognome"
                     app:layout_constraintTop_toBottomOf="@+id/txtCodFiscale" />
@@ -90,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/text_Cellulare"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/guideline_mezzo"
                     app:layout_constraintTop_toTopOf="@+id/txtNomeCognome" />
@@ -100,6 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/text_Email"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintEnd_toEndOf="@+id/txtCellulare"
                     app:layout_constraintStart_toStartOf="@+id/txtCellulare"
                     app:layout_constraintTop_toBottomOf="@+id/txtCellulare" />
@@ -110,6 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@string/text_Emergenza"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     app:layout_constraintEnd_toEndOf="@+id/txtCellulare"
                     app:layout_constraintStart_toStartOf="@+id/txtCellulare"
                     app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
@@ -125,7 +131,7 @@
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
                 app:strokeWidth="0dp"
-                app:cardBackgroundColor="@android:color/white">
+                app:cardBackgroundColor="?attr/colorSurface">
 
                 <EditText
                     android:id="@+id/ricercaDiagnosi"

@@ -4,11 +4,13 @@ import DataBase.DB_Manager
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.text.HtmlCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -37,7 +39,8 @@ class ProfiloActivity : AppCompatActivity()
         val textViewEmail       = findViewById<TextView>    (R.id.textViewEmail)
         val textViewDataNascita = findViewById<TextView>    (R.id.textViewDataNascita)
         val btnHome             = findViewById<ImageButton> (R.id.btnHome)
-        val btnModifica         = findViewById<TextView>    (R.id.btnModifica)
+        val btnModifica         = findViewById<Button>      (R.id.btnModifica)
+        val btnLogout           = findViewById<Button>      (R.id.btnLogout)
 
         val db                  = DB_Manager(this)
         val id                  = sharedPref.getInt("idDottore", -1)
@@ -62,6 +65,17 @@ class ProfiloActivity : AppCompatActivity()
         btnModifica.setOnClickListener {
             val intent = Intent(this, ModificaDatiPersonali::class.java)
             startActivity(intent)
+        }
+
+        btnLogout.setOnClickListener {
+            sharedPref.edit {
+                putBoolean("isLoggedIn", false)
+                putInt("idDottore", -1)
+            }
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
         }
     }
 }

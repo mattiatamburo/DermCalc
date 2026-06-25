@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA">
+    android:background="?attr/android:windowBackground">
 
     <include
         android:id="@+id/included_toolbar"
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="@android:color/white"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
                 app:strokeWidth="0dp">
@@ -72,6 +72,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:hint="@string/text_Cellulare"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant"
                         android:inputType="phone"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp" />
@@ -82,6 +84,8 @@
                         android:layout_height="56dp"
                         android:layout_marginTop="16dp"
                         android:hint="@string/text_Email"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant"
                         android:inputType="textEmailAddress"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp" />
@@ -101,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@android:color/white"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
                 app:strokeWidth="0dp">
@@ -117,6 +121,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:hint="Vecchia Password"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant"
                         android:inputType="textPassword"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp" />
@@ -126,13 +132,15 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:background="#EEEEEE" />
+                        android:background="?attr/colorSurfaceVariant" />
 
                     <EditText
                         android:id="@+id/txtNewPassword"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:hint="Nuova Password"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant"
                         android:inputType="textPassword"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp" />
@@ -143,6 +151,8 @@
                         android:layout_height="56dp"
                         android:layout_marginTop="16dp"
                         android:hint="Conferma Nuova Password"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant"
                         android:inputType="textPassword"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp" />

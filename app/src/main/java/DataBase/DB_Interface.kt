@@ -71,4 +71,10 @@ interface DB_Interface {
 
     @Query("SELECT * FROM Accessi WHERE idDottore = :idDottore")
     fun getAccessoByDottoreId(idDottore: Int): Accessi
+
+    @Query("SELECT COUNT(*) > 0 FROM Accessi")
+    fun checkPrimoAccesso(): Boolean;
+
+    @Query("SELECT COUNT(*) > 0 FROM Paziente")
+    fun checkPazienti(): Boolean;
 }

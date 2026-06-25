@@ -93,9 +93,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         btnHome.setOnClickListener {
-            val restartIntent = Intent(this, MainActivity::class.java)
-            finish()
-            startActivity(restartIntent)
+
         }
 
         btnProfilo.setOnClickListener {

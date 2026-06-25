@@ -1,8 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.DermCalc" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
+        <!-- Disabilita animazioni tra activity -->
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
+
+        <!-- Font simile a Comic Sans -->
         <item name="android:fontFamily">sans-serif-casual</item>
         <item name="fontFamily">sans-serif-casual</item>
+
+        <!-- Material 3 Colors - Dark Mode -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSurfaceVariant">#3E3E42</item>
+        <item name="colorOnSurfaceVariant">#CAC4D0</item>
     </style>
 </resources>
